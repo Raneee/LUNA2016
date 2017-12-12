@@ -1,7 +1,7 @@
 import numpy as np
 import os
 import SimpleITK as sitk
-import Augmentation as AUG
+import Tools_Augmentation as AUG_T
 
 def load_itk_image(filename):
     itkimage = sitk.ReadImage(filename)
@@ -46,7 +46,7 @@ def Image3DOut(voxelCoord, numpyImage, voxelWidth = 70):
     patch = normalizePlanes(patch)
     
     if patch.shape[0] != voxelWidth or patch.shape[1] != voxelWidth or patch.shape[2] != voxelWidth:
-            patch = AUG.makeSquare(patch, voxelWidth)    
+            patch = AUG_T.makeSquare(patch, voxelWidth)    
     return patch
 
 def imgReturn(p_id):

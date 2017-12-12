@@ -15,9 +15,9 @@ class my_dataset_byInfo(data.Dataset):
         img_tensor_list = []
         
         img_3D, label, P_ID, XYZ = IMG_T.makeCutImage(self.CandidateList[idx], self.PatientList)
-        img_3D = AUG.randomCrop(img_3D, size=64)
+        img_3D = AUG_T.randomCrop(img_3D, size=64)
         if label == '1':
-            img_3D = AUG.rotate_3D(img_3D)
+            img_3D = AUG_T.rotate_3D(img_3D)
         img3D_50, img3D_75, img3D_100 = converter3D(img_3D)
         
         img2D = converter2D(img_3D)
@@ -37,8 +37,8 @@ class my_dataset_byInfo(data.Dataset):
 
 def converter3D(img_3D):
     img_64 = img_3D
-    img_48 = AUG.getSmallImage_3D(img_3D, 48)
-    img_32 = AUG.getSmallImage_3D(img_3D, 32)
+    img_48 = AUG_T.getSmallImage_3D(img_3D, 48)
+    img_32 = AUG_T.getSmallImage_3D(img_3D, 32)
     
     
     
