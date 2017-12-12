@@ -1,0 +1,16 @@
+
+************************************************************
+CAD Analysis: final
+************************************************************
+
+Candidate detection results:
+    True positives: 1073
+    False positives: 84068
+    False negatives: 113
+    True negatives: 0
+    Total number of candidates: 88766
+    Total number of nodules: 1186
+    Ignored candidates on excluded nodules: 3270
+    Ignored candidates which were double detections on a nodule: 355
+    Sensitivity: 0.904721754
+    Average number of candidates per scan: 99.961711712
