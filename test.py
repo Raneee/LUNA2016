@@ -17,10 +17,11 @@ import Tools_Image as IMG_T
 import Tools_IO as IO_T
 import Tools_Torch as TORCH_T
 
-cand_path = '../Data/CSVFILES/candidates_V2.csv'
-candidate_V2 = IO_T.read_candidates_V2(cand_path)
+
 
 def test(idx):
+    cand_path = '../Data/CSVFILES/candidates_V2.csv'
+    candidate_V2 = IO_T.read_candidates_V2(cand_path)
     f = file('final.csv', 'a')
     f.write('seriesuid,coordX,coordY,coordZ,probability\n')
 
@@ -78,6 +79,3 @@ def test(idx):
         print 'Test set (', test_index + 1, ') Accuracy: ', correct_cnt ,'/', len(balancedCandidate), '----->', (correct_cnt * 100 / len(balancedCandidate)) , '%'
         print 
     f.close()
-test(0)
-#test(1)
-#test(2)

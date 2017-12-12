@@ -13,15 +13,14 @@ import os
 import model as MODEL
 import DataLoader as DL
 import Tools_Torch as TORCH_T
-import Tools_Image as IMG_T
 import Tools_IO as IO_T
-import Tools_Torch as TORCH_T
 
 
-cand_path = '../Data/CSVFILES/candidates_V2.csv'
-candidate_V2 = IO_T.read_candidates_V2(cand_path)
+
 
 def train(idx):
+    cand_path = '../Data/CSVFILES/candidates_V2.csv'
+    candidate_V2 = IO_T.read_candidates_V2(cand_path)
     for test_index in range(10):
 	if idx == 1 and test_index < 4:
 	    continue
@@ -35,10 +34,6 @@ def train(idx):
         criterion = nn.CrossEntropyLoss()
         optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)
 
-        
-        
-        
-        
         
         for epoch in range(num_epochs):
             print '  ', epoch, ' epoch... of ', num_epochs
@@ -96,9 +91,4 @@ def train(idx):
                     print train_correct_cnt, '/', len(balancedCandidate), '----->', (train_correct_cnt * 100 / len(balancedCandidate)) , '%'
                 
             torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index) + '.pt')    
-
-
-                
-#train(0)         
-train(1)
-train(2)          
+        
