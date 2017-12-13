@@ -22,14 +22,13 @@ def train(idx):
     cand_path = '../Data/CSVFILES/candidates_V2.csv'
     candidate_V2 = IO_T.read_candidates_V2(cand_path)
     for test_index in range(10):
-	if idx == 1 and test_index < 4:
-	    continue
+
         print 'Test for ', test_index + 1, ' fold'
         
         
         model, model_name, batch_size = TORCH_T.model_setter(idx)
         print 'Model Name : ', model_name
-        num_epochs = 1
+        num_epochs = 10
         learning_rate = 0.001
         criterion = nn.CrossEntropyLoss()
         optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)
@@ -40,6 +39,15 @@ def train(idx):
             
             for train_index in range(10):
                 if train_index != test_index:
+
+        	    model_path = os.path.join('../Model/' + model_name + '__' + str(test_index) + '.pt')  
+                    if os.path.isfile(model_path):
+                        model.load_state_dict(torch.load(model_path))	
+                        print 'Previous Model Loaded!'		
+
+
+
+
                     train_correct_cnt = 0
                     print '      Train for ', train_index + 1, ' fold'
                     
@@ -81,7 +89,7 @@ def train(idx):
                         train_correct_cnt += correct
                         
                         if batch_index % 100 == 0:
-			    torch.save(model.state_dict(), '../Model/' + model_name + '__' + str(test_index) + '.pt')
+			    torch.save(model.state_dict(), '../Model/' + model_name + '__' + str(test_index)+ '__'+ str(epoch) + '.pt')
                        	    print '        In mini-batch ', batch_index
                             print '                   Accuracy : ', correct ,'/', label_tensor.size()[0], '----->', (correct * 100 / label_tensor.size()[0]) , '%'
                             print '                   Loss : ', loss.data[0]
@@ -90,5 +98,5 @@ def train(idx):
 
                     print train_correct_cnt, '/', len(balancedCandidate), '----->', (train_correct_cnt * 100 / len(balancedCandidate)) , '%'
                 
-            torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index) + '.pt')    
+            torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.pt')    
         

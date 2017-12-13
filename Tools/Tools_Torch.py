@@ -18,6 +18,8 @@ def model_setter(idx, isTest=False):
         model = models.CNNfor2D_Small(2)
         if torch.cuda.is_available():
             model = model.cuda()
+        if torch.cuda.device_count() > 1:
+            model = torch.nn.DataParallel(model, device_ids=range(torch.cuda.device_count()))
         
         
         return model, model_name, batch_size
@@ -30,7 +32,8 @@ def model_setter(idx, isTest=False):
         model = models.CNNfor3D_DIFF(2)
         if torch.cuda.is_available():
             model = model.cuda()
-        
+        if torch.cuda.device_count() > 1:
+            model = torch.nn.DataParallel(model, device_ids=range(torch.cuda.device_count()))        
         
         return model, model_name, batch_size
     else:
@@ -42,6 +45,7 @@ def model_setter(idx, isTest=False):
         model = models.CNNfor2D3D_DIFF()
         if torch.cuda.is_available():
             model.cuda()
-        
+        if torch.cuda.device_count() > 1:
+            model = torch.nn.DataParallel(model, device_ids=range(torch.cuda.device_count()))
         
         return model, model_name, batch_size
