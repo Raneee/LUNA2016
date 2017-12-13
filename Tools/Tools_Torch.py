@@ -38,7 +38,7 @@ def model_setter(idx, isTest=False):
         return model, model_name, batch_size
     else:
         model_name = '2D3DNet'
-        batch_size = 128
+        batch_size = 256
         if isTest:
             return model_name, batch_size
         #model = models.CNNfor2D3D(100)
