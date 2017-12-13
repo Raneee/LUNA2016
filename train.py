@@ -41,9 +41,9 @@ def train(idx):
                 if train_index != test_index:
 
         	    model_path = os.path.join('../Model/' + model_name + '__' + str(test_index) + '.pt')  
-                    if os.path.isfile(model_path):
-                        model.load_state_dict(torch.load(model_path))	
-                        print 'Previous Model Loaded!'		
+                    #if os.path.isfile(model_path):
+                    #    model.load_state_dict(torch.load(model_path))	
+                    #    print 'Previous Model Loaded!'		
 
 
 
