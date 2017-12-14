@@ -4,15 +4,19 @@ from torch.autograd import Variable
 import torch.nn.functional as F
 import model as models
 
+
+
+
 def to_var(x, volatile=False):
     if torch.cuda.is_available():
         x = x.cuda()
     return Variable(x, volatile=volatile)
 
 def model_setter(idx, isTest=False):
+    default_batch = 64
     if idx == 0:
         model_name = 'ResNet'
-        batch_size = 128
+        batch_size = default_batch
         if isTest:
             return model_name, batch_size
         model = models.CNNfor2D_Small(2)
@@ -25,7 +29,7 @@ def model_setter(idx, isTest=False):
         return model, model_name, batch_size
     elif idx == 1:
         model_name = '3DNet'
-        batch_size = 128
+        batch_size = default_batch
         if isTest:
             return model_name, batch_size
         #model = models.CNNfor3D(2)
@@ -38,7 +42,7 @@ def model_setter(idx, isTest=False):
         return model, model_name, batch_size
     else:
         model_name = '2D3DNet'
-        batch_size = 128
+        batch_size = default_batch
         if isTest:
             return model_name, batch_size
         #model = models.CNNfor2D3D(100)
