@@ -32,7 +32,7 @@ def train(idx, batch_size):
             model_path, model_epoch = IO_T.modelLoader(model_name, test_index)
 
 
-            learning_rate = 0.001 / (2 * model_epoch)
+            learning_rate = 0.001
             criterion = nn.CrossEntropyLoss()
             optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
             
