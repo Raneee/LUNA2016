@@ -94,7 +94,7 @@ def train(idx, batch_size=-1):
 
 
                         if batch_index % 100 == 0:
-                            torch.save(model.state_dict(), '../Model/' + model_name + '__' + str(test_index)+ '__'+ str(model_epoch + 1) + '.pt')
+                            #torch.save(model.state_dict(), '../Model/' + model_name + '__' + str(test_index)+ '__'+ str(model_epoch + 1) + '.pt')
                             print '        In mini-batch ', batch_index
                             print '                   Accuracy : ', correct ,'/', label_tensor.size()[0], '----->', (correct * 100 / label_tensor.size()[0]) , '%'
                             print '                   Loss : ', loss.data[0]
