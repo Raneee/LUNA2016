@@ -18,7 +18,7 @@ import Tools_IO as IO_T
 
 
 
-def train(idx, batch_size=batch_size):
+def train(idx, batch_size):
     cand_path = '../Data/CSVFILES/candidates_V2.csv'
     candidate_V2 = IO_T.read_candidates_V2(cand_path)
 
@@ -28,7 +28,7 @@ def train(idx, batch_size=batch_size):
 
           
 
-            model, model_name, batch_size = TORCH_T.model_setter(idx, batch_size_=batch_size)
+            model, model_name, batch_size = TORCH_T.model_setter(idx, batch_size)
             model_path, model_epoch = IO_T.modelLoader(model_name, test_index)
 
 
