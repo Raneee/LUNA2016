@@ -9,10 +9,10 @@ def to_var(x, volatile=False):
         x = x.cuda()
     return Variable(x, volatile=volatile)
 
-def model_setter(idx, batch_size_=-1, isTest=False):
+def model_setter(idx, batch_size_=batch_size, isTest=False):
     if idx == 0:
         model_name = 'ResNet'
-        if batch_size_ == -1:
+        if batch_size_ == None:
             batch_size = 256
         else:
             batch_size = batch_size_
@@ -28,7 +28,7 @@ def model_setter(idx, batch_size_=-1, isTest=False):
         return model, model_name, batch_size
     elif idx == 1:
         model_name = '3DNet'
-        if batch_size_ == -1:
+        if batch_size_ == None:
             batch_size = 256
         else:
             batch_size = batch_size_
@@ -44,7 +44,7 @@ def model_setter(idx, batch_size_=-1, isTest=False):
         return model, model_name, batch_size
     else:
         model_name = '2D3DNet'
-        if batch_size_ == -1:
+        if batch_size_ == None:
             batch_size = 256
         else:
             batch_size = batch_size_
