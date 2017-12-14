@@ -123,6 +123,6 @@ def train(idx, batch_size):
             save_rate = 0.001
             for param_group in optimizer.param_groups:
                 save_rate = param_group['lr']            
-            f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.txt')
+            f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.txt', 'w')
             f.write(str(batch_size) +',' + save_rate)
             f.close()   
