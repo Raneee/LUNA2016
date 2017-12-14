@@ -253,7 +253,7 @@ def modelLoader(model_name, test_index, epoch=-1):
     model_list.sort()
     
     if len(model_list) < 1:
-        return None, -1
+        return None, -1, None, None
     else:
         if epoch != -1:
             model_name = model_name + '____' + str(test_index) + '__' + str(epoch) + '.pt'
@@ -267,4 +267,14 @@ def modelLoader(model_name, test_index, epoch=-1):
         else:
             model_out = os.path.join(model_path, model_list[-1])
             model_epoch = int(model_list[-1].split('__')[-1].split('.')[0])  
-        return model_out, model_epoch
+
+
+
+        f = open(model_out.replace('.pt', 'txt'), 'r')
+        line = f.readline()
+        batch_size = int(line[-1].split(',')[0])
+        learning_rate = float(line[-1].split(',')[1])
+
+
+    
+        return model_out, model_epoch, batch_size, learning_rate
