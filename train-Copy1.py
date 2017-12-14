@@ -35,9 +35,9 @@ def train(idx, batch_size):
                     
                     print '          Patient Count : ', len(patientDict)
                     print '          Nodule Count : ', len(balancedCandidate)
-                    #for p in patientDict:
-                    #    print p
-                    #    print patientDict[p].IMG.shape
+                    for p in patientDict:
+                        print p
+                        print patientDict[p].IMG.shape
                     
                     dataset = DL.my_dataset_byInfo()
                     dataset.initialize(balancedCandidate, patientDict)
@@ -48,10 +48,9 @@ def train(idx, batch_size):
                         img_64 = TORCH_T.to_var(img_tensor[2])
                         img_2D = TORCH_T.to_var(img_tensor[3])
                         label = TORCH_T.to_var(label_tensor.view(-1))
-                        #print img_tensor[3].cpu().numpy()
-                        print img_tensor[3][0].size()
+                        
+                        
                         img = transforms.ToPILImage()(img_tensor[3][0])
-                        #aaaa = Image.fromarray(img_tensor[3].data.cpu().numpy())
                         print img.shape
                         img.save('out.png')
                         

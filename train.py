@@ -39,7 +39,7 @@ def train(idx, batch_size):
                 model.load_state_dict(torch.load(model_path))
                 print 'Previous Model Loaded!     -> ', model_path
                 print 'Start Epoch : ' , model_epoch	
-                learning_rate = previous_learning_rate
+                learning_rate = float(previous_learning_rate)
                 criterion = nn.CrossEntropyLoss()
                 optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
             else:
@@ -124,5 +124,5 @@ def train(idx, batch_size):
             for param_group in optimizer.param_groups:
                 save_rate = param_group['lr']            
             f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.txt', 'w')
-            f.write(str(batch_size) +',' + save_rate)
+            f.write(str(batch_size) +',' + str(save_rate))
             f.close()   
