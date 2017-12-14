@@ -59,7 +59,11 @@ def converter2D(img_3D, size2D=64):
     img2D_X = img_3D[32, :, :]
     img2D_Y = img_3D[:, 32, :]
     img2D_Z = img_3D[:, :, 32]
-        
+    '''
+    img2D_X = img_3D[32, :, :]
+    img2D_Y = img_3D[32, :, :]
+    img2D_Z = img_3D[32, :, :]      
+    '''
     img2D_X = np.expand_dims(img2D_X, axis=0)
     img2D_Y = np.expand_dims(img2D_Y, axis=0)
     img2D_Z = np.expand_dims(img2D_Z, axis=0)
