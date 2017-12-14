@@ -29,13 +29,9 @@ def train(idx, batch_size):
           
 
             model, model_name, batch_size = TORCH_T.model_setter(idx, batch_size)
-            model_path, model_epoch = IO_T.modelLoader(model_name, test_index)
+            model_path, model_epoch, previous_batch_size, previous_learning_rate = IO_T.modelLoader(model_name, test_index)
 
 
-            learning_rate = 0.001
-            criterion = nn.CrossEntropyLoss()
-            optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
-            
             print '\nModel Name : ', model_name
             print '\nBatch_size : ', batch_size
 
@@ -43,11 +39,27 @@ def train(idx, batch_size):
                 model.load_state_dict(torch.load(model_path))
                 print 'Previous Model Loaded!     -> ', model_path
                 print 'Start Epoch : ' , model_epoch	
+                learning_rate = previous_learning_rate
+                criterion = nn.CrossEntropyLoss()
+                optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
             else:
                 print 'No Model Loaded!'
                 print 'Start Epoch : 0'	
+                learning_rate = 0.001
+                criterion = nn.CrossEntropyLoss()
+                optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
+
+
+
+
             print epoch, ' / ', num_epoch, ' epoch'
             
+
+
+
+
+
+
             for train_index in range(10):
                 if train_index != test_index:
 
@@ -100,7 +112,19 @@ def train(idx, batch_size):
                             print '                   Loss : ', loss.data[0]
                             TP, FP, FN, TN = IO_T.result_Summary(np.array(guess_i), (label.data).cpu().numpy())
                             print '                   TP : ', TP, ' FP : ', FP, ' FN : ', FN, ' TN : ', TN
+                            for param_group in optimizer.param_groups:
+                                print param_group['lr'], '!!!!!!!!!!!!!!!!!!!!!', 
 
                     print train_correct_cnt, '/', len(balancedCandidate), '----->', (train_correct_cnt * 100 / len(balancedCandidate)) , '%'
+
                 
-            torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.pt')    
+            
+
+
+            torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.pt')
+            save_rate = 0.001
+            for param_group in optimizer.param_groups:
+                save_rate = param_group['lr']            
+            f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.txt')
+            f.write(str(batch_size) +',' + save_rate)
+            f.close()   
