@@ -18,35 +18,38 @@ import Tools_IO as IO_T
 
 
 
-def train(idx):
+def train(idx, batch_size=-1):
     cand_path = '../Data/CSVFILES/candidates_V2.csv'
     candidate_V2 = IO_T.read_candidates_V2(cand_path)
-    for test_index in range(10):
 
-        print 'Test for ', test_index + 1, ' fold'
-        
-        
-        model, model_name, batch_size = TORCH_T.model_setter(idx)
-        print 'Model Name : ', model_name
-        num_epochs = 10
-        learning_rate = 0.001
-        criterion = nn.CrossEntropyLoss()
-        optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)
+    num_epoch = 10
+    for epoch in range(num_epoch):
+        for test_index in range(10):
 
-        
-        for epoch in range(num_epochs):
-            print '  ', epoch, ' epoch... of ', num_epochs
+          
+
+            model, model_name, batch_size = TORCH_T.model_setter(idx, batch_size_=batch_size)
+            model_path, model_epoch = IO_T.modelLoader(model_name, test_index)
+
+
+            learning_rate = 0.001 / (2 * model_epoch)
+            criterion = nn.CrossEntropyLoss()
+            optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
+            
+            print '\nModel Name : ', model_name
+            print '\nBatch_size : ', batch_size
+
+            if model_epoch != -1:
+                model.load_state_dict(torch.load(model_path))
+                print 'Previous Model Loaded!     -> ', model_path
+                print 'Start Epoch : ' , model_epoch	
+            else:
+                print 'No Model Loaded!'
+                print 'Start Epoch : 0'	
+            print epoch, ' / ', num_epoch, ' epoch'
             
             for train_index in range(10):
                 if train_index != test_index:
-
-        	    model_path = os.path.join('../Model/' + model_name + '__' + str(test_index) + '.pt')  
-                    #if os.path.isfile(model_path):
-                    #    model.load_state_dict(torch.load(model_path))	
-                    #    print 'Previous Model Loaded!'		
-
-
-
 
                     train_correct_cnt = 0
                     print '      Train for ', train_index + 1, ' fold'
@@ -88,15 +91,16 @@ def train(idx):
                         
                         train_correct_cnt += correct
                         
+
+
                         if batch_index % 100 == 0:
-			    torch.save(model.state_dict(), '../Model/' + model_name + '__' + str(test_index)+ '__'+ str(epoch) + '.pt')
-                       	    print '        In mini-batch ', batch_index
+                            torch.save(model.state_dict(), '../Model/' + model_name + '__' + str(test_index)+ '__'+ str(model_epoch + 1) + '.pt')
+                            print '        In mini-batch ', batch_index
                             print '                   Accuracy : ', correct ,'/', label_tensor.size()[0], '----->', (correct * 100 / label_tensor.size()[0]) , '%'
                             print '                   Loss : ', loss.data[0]
                             TP, FP, FN, TN = IO_T.result_Summary(np.array(guess_i), (label.data).cpu().numpy())
-			    print '                   TP : ', TP, ' FP : ', FP, ' FN : ', FN, ' TN : ', TN
+                            print '                   TP : ', TP, ' FP : ', FP, ' FN : ', FN, ' TN : ', TN
 
                     print train_correct_cnt, '/', len(balancedCandidate), '----->', (train_correct_cnt * 100 / len(balancedCandidate)) , '%'
                 
-            torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.pt')    
-        
+            torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.pt')    

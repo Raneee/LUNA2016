@@ -238,4 +238,33 @@ def result_Summary(guess_i, label):
             else:
                 TN += 1
     return TP, FP, FN, TN
+
+
+
+
+def modelLoader(model_name, test_index, epoch=-1):
+    model_path = '../Model'
+    files = os.listdir(model_path)
+    model_list = []
+    for file in files:
+        if '.pt' in file and (model_name + '____' + str(test_index)) in file:
+            model_list.append(file)
+
+    model_list.sort()
     
+    if len(model_list) < 1:
+        return None, -1
+    else:
+        if epoch != -1:
+            model_name = model_name + '____' + str(test_index) + '__' + str(epoch) + '.pt'
+            if os.path.isfile(os.path.join(model_path, model_name)):
+                model_out = os.path.join(model_path, model_name)
+                model_epoch = epoch
+            else:
+                print 'NO MODEL!!'
+                model_out = os.path.join(model_path, model_list[-1])
+                model_epoch = int(model_list[-1].split('__')[-1].split('.')[0])
+        else:
+            model_out = os.path.join(model_path, model_list[-1])
+            model_epoch = int(model_list[-1].split('__')[-1].split('.')[0])  
+        return model_out, model_epoch

@@ -19,22 +19,22 @@ import Tools_Torch as TORCH_T
 
 
 
-def test(idx):
+def test(idx, batch_size=-1):
     cand_path = '../Data/CSVFILES/candidates_V2.csv'
     candidate_V2 = IO_T.read_candidates_V2(cand_path)
-    f = file('final.csv', 'a')
+    f = file('../Output/final.csv', 'a')
     f.write('seriesuid,coordX,coordY,coordZ,probability\n')
 
     for test_index in range(10):
         print 'Test for ', test_index + 1, ' fold'
         
         
-        model, model_name, batch_size = TORCH_T.model_setter(idx)
-        model_path = os.path.join('../Model/' + model_name + '__' + str(test_index) + '.pt')  
+        model, model_name, batch_size = TORCH_T.model_setter(idx, batch_size)
+        model_path, model_epoch = IO_T.modelLoader(model_name, test_index) 
         model.load_state_dict(torch.load(model_path))
-
         model.eval()
-        
+        print '\nModel Name : ', model_name
+        print '\nBatch_size : ', batch_size        
         
         correct_cnt = 0
         correct_mal = 0
@@ -66,7 +66,7 @@ def test(idx):
                 outputs = model(img_32, img_48, img_64)
             else:
                 outputs = model(img_32, img_48, img_64, img_2D)
-	    lines = IO_T.modify_candidates_V2_OUT(P_ID, XYZ, F.softmax(outputs).data.cpu().numpy())
+            lines = IO_T.modify_candidates_V2_OUT(P_ID, XYZ, F.softmax(outputs).data.cpu().numpy())
             for line in lines:
                 f.write(str(line))
             guess, guess_i = IO_T.classFromOutput(outputs)
