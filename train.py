@@ -112,8 +112,6 @@ def train(idx, batch_size):
                             print '                   Loss : ', loss.data[0]
                             TP, FP, FN, TN = IO_T.result_Summary(np.array(guess_i), (label.data).cpu().numpy())
                             print '                   TP : ', TP, ' FP : ', FP, ' FN : ', FN, ' TN : ', TN
-                            for param_group in optimizer.param_groups:
-                                print param_group['lr'], '!!!!!!!!!!!!!!!!!!!!!', 
 
                     print train_correct_cnt, '/', len(balancedCandidate), '----->', (train_correct_cnt * 100 / len(balancedCandidate)) , '%'
 
