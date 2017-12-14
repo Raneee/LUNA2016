@@ -270,7 +270,7 @@ def modelLoader(model_name, test_index, epoch=-1):
 
 
 
-        f = open(model_out.replace('.pt', 'txt'), 'r')
+        f = open(model_out.replace('.pt', '.txt'), 'r')
         line = f.readline()
         batch_size = int(line[-1].split(',')[0])
         learning_rate = float(line[-1].split(',')[1])
