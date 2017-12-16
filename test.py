@@ -43,12 +43,12 @@ def test(idx, batch_size):
     
     
         patientDict = IO_T.makePatientDict(test_index, candidate_V2)
-        balancedCandidate = IO_T.makeBalancedList(patientDict, isTest=True)
+        noduleCandidate = IO_T.makeCandidateList(patientDict, isTest=True)
         print '  Patient Count : ', len(patientDict)
-        print '  Nodule Count : ', len(balancedCandidate)
+        print '  Nodule Count : ', len(noduleCandidate)
     
         dataset = DL.my_dataset_byInfo()
-        dataset.initialize(balancedCandidate, patientDict)
+        dataset.initialize(noduleCandidate, patientDict)
         
         test_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=1)
         
@@ -76,6 +76,6 @@ def test(idx, batch_size):
             correct_cnt += correct
             if batch_index % 100 == 0:
                 print '  ', batch_index, ' Batch Accuracy : ', correct * 100 / batch_size, '%'
-        print 'Test set (', test_index + 1, ') Accuracy: ', correct_cnt ,'/', len(balancedCandidate), '----->', (correct_cnt * 100 / len(balancedCandidate)) , '%'
+        print 'Test set (', test_index + 1, ') Accuracy: ', correct_cnt ,'/', len(noduleCandidate), '----->', (correct_cnt * 100 / len(noduleCandidate)) , '%'
         print 
     f.close()

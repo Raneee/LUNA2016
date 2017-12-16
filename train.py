@@ -14,117 +14,87 @@ import model as MODEL
 import DataLoader as DL
 import Tools_Torch as TORCH_T
 import Tools_IO as IO_T
+import Tools_Summary as S_T
+import time
 
 
 
 
-def train(idx, batch_size):
-    cand_path = '../Data/CSVFILES/candidates_V2.csv'
-    candidate_V2 = IO_T.read_candidates_V2(cand_path)
+def train(model_idx, num_epoch, test_index, batch_size):
 
-    num_epoch = 10
-    for epoch in range(num_epoch):
-        for test_index in range(10):
-
-          
-            model, model_name, batch_size = TORCH_T.model_setter(idx, batch_size)
-            model_path, model_epoch, previous_batch_size, previous_learning_rate = IO_T.modelLoader(model_name, test_index)
+    
+    model, model_name, batch_size = TORCH_T.model_setter(model_idx, batch_size)
+    model_path, model_epoch, previous_batch_size, previous_learning_rate = IO_T.modelLoader(model_name, test_index)
 
  
 
 
 
-            print '\nModel Name : ', model_name
-            print '\nBatch_size : ', batch_size
-
-            if model_epoch != -1:
-                model.load_state_dict(torch.load(model_path))
-                print 'Previous Model Loaded!     -> ', model_path
-                print 'Start Epoch : ' , model_epoch	
-                learning_rate = previous_learning_rate
-                criterion = nn.CrossEntropyLoss()
-                optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
-            else:
-                print 'No Model Loaded!'
-                print 'Start Epoch : 0'	
-                learning_rate = 0.001
-                criterion = nn.CrossEntropyLoss()
-                optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
-
-
+    print '\nModel Name : ', model_name
+    print '\nBatch_size : ', batch_size
+    
+    if model_epoch != -1:
+        model.load_state_dict(torch.load(model_path))
+        print 'Previous Model Loaded!     -> ', model_path
+        print 'Start Epoch : ' , model_epoch	
+        learning_rate = previous_learning_rate
+        criterion = nn.CrossEntropyLoss()
+        optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
+    else:
+        print 'No Model Loaded!'
+        print 'Start Epoch : 0'	
+        learning_rate = 0.001
+        criterion = nn.CrossEntropyLoss()
+        optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
 
 
-            print epoch, ' / ', num_epoch, ' epoch'
+    for epoch in range(num_epoch):
+        for train_index in range(1):
+            patientDict = None
+            candidateList = None
+            if train_index != test_index:
+                train_correct_cnt = 0
+                print '      Train for ', train_index + 1, ' fold'
+                patientDict, candidateList = IO_T.makePreLists(train_index, isBalanced=False)
+
+                print '          Patient Count : ', len(patientDict)
+                print '          Nodule Count : ', len(candidateList)
+    
+                for batch_index in range((len(candidateList) / batch_size) + 1):
+                    batch_img, batch_label, batch_P_ID, batch_XYZ = DL.makeBatch(batch_index, batch_size, candidateList, patientDict)
             
-            
+                    img_32 = TORCH_T.to_var(torch.from_numpy(batch_img[0]).float())
+                    img_48 = TORCH_T.to_var(torch.from_numpy(batch_img[1]).float())
+                    img_64 = TORCH_T.to_var(torch.from_numpy(batch_img[2]).float())
+                    img_2D = TORCH_T.to_var(torch.from_numpy(batch_img[3]).float())
+                    label = TORCH_T.to_var(torch.LongTensor(batch_label).view(-1))
 
 
 
+                    optimizer.zero_grad()
+                    if model_idx == 0:
+                        outputs = model(img_2D)
+                    elif model_idx == 1:
+                        outputs = model(img_32, img_48, img_64)
+                    else:
+                        outputs = model(img_32, img_48, img_64, img_2D)
+                    loss = criterion(outputs, label)
 
+                    loss.backward()
+                    optimizer.step()
+                    guess, guess_i = IO_T.classFromOutput(outputs)
 
-            for train_index in range(10):
-                if train_index != test_index:
-
-                    train_correct_cnt = 0
-                    print '      Train for ', train_index + 1, ' fold'
-                    
-                    
-                    patientDict = IO_T.makePatientDict(train_index, candidate_V2)
-                    balancedCandidate = IO_T.makeBalancedList(patientDict)
-                    
-                    print '          Patient Count : ', len(patientDict)
-                    print '          Nodule Count : ', len(balancedCandidate)
+                    print '        In mini-batch ', batch_index
+                    print '                   Loss : ', loss.data[0]
+                    TP, FP, FN, TN, correct = S_T.result_Summary(np.array(guess_i), (label.data).cpu().numpy())
+                    train_correct_cnt += correct
                 
-                    
-                    
+            print train_correct_cnt, '/', len(candidateList), '----->', (train_correct_cnt * 100 / len(candidateList)) , '%'
 
-                    dataset = DL.my_dataset_byInfo()
-                    dataset.initialize(balancedCandidate, patientDict)
-                    train_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=6)
-                    for batch_index, (img_tensor, label_tensor, P_ID, XYZ) in enumerate(train_loader):
-                        img_32 = TORCH_T.to_var(img_tensor[0])
-                        img_48 = TORCH_T.to_var(img_tensor[1])
-                        img_64 = TORCH_T.to_var(img_tensor[2])
-                        img_2D = TORCH_T.to_var(img_tensor[3])
-                        label = TORCH_T.to_var(label_tensor.view(-1))
-
-                        optimizer.zero_grad()
-                        if idx == 0:
-                            outputs = model(img_2D)
-                        elif idx == 1:
-                            outputs = model(img_32, img_48, img_64)
-                        else:
-                            outputs = model(img_32, img_48, img_64, img_2D)
-                        loss = criterion(outputs, label)
-
-                        loss.backward()
-                        optimizer.step()
-                        guess, guess_i = IO_T.classFromOutput(outputs)
-
-                        correct = np.sum(np.array(guess_i) == (label.data).cpu().numpy())
-                        
-                        train_correct_cnt += correct
-                        
-
-
-                        if batch_index % 100 == 0:
-                            #torch.save(model.state_dict(), '../Model/' + model_name + '__' + str(test_index)+ '__'+ str(model_epoch + 1) + '.pt')
-                            print '        In mini-batch ', batch_index
-                            print '                   Accuracy : ', correct ,'/', label_tensor.size()[0], '----->', (correct * 100 / label_tensor.size()[0]) , '%'
-                            print '                   Loss : ', loss.data[0]
-                            TP, FP, FN, TN = IO_T.result_Summary(np.array(guess_i), (label.data).cpu().numpy())
-                            print '                   TP : ', TP, ' FP : ', FP, ' FN : ', FN, ' TN : ', TN
-
-                    print train_correct_cnt, '/', len(balancedCandidate), '----->', (train_correct_cnt * 100 / len(balancedCandidate)) , '%'
-
-                
-            
-
-
-            torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.pt')
-            save_rate = 0.001
-            for param_group in optimizer.param_groups:
-                save_rate = param_group['lr']            
-            f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.txt', 'w')
-            f.write(str(batch_size) +',' + str(save_rate))
-            f.close()   
+        torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.pt')
+        save_rate = 0.001
+        for param_group in optimizer.param_groups:
+            save_rate = param_group['lr']            
+        f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.txt', 'w')
+        f.write(str(batch_size) +',' + str(save_rate))
+    f.close()  
