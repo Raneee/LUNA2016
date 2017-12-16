@@ -2,6 +2,7 @@ import numpy as np
 import os
 import SimpleITK as sitk
 import Tools_Augmentation as AUG_T
+import copy
 
 def load_itk_image(filename):
     itkimage = sitk.ReadImage(filename)
@@ -57,14 +58,17 @@ def imgReturn(p_id):
     
     return numpyImage, numpyOrigin, numpySpacing
 
-def makeCutImage(CandidateInfo, patientDict):
-    XYZ = CandidateInfo['XYZ']
-    P_ID = CandidateInfo['P_ID']
-    Label = CandidateInfo['Label']  
-    Img = patientDict[P_ID].IMG
-    Origin = patientDict[P_ID].Origin
-    Spacing = patientDict[P_ID].Spacing
-    
+def makeCutImage(candidateInfo, patientDict): 
+    candidate = candidateInfo
+    XYZ = candidate['XYZ']
+    P_ID = candidate['P_ID']
+    Label = candidate['Label']
+
+    patient = patientDict[P_ID]
+    Img = patient['IMG']
+    Origin = patient['Origin']
+    Spacing = patient['Spacing']
+        
     worldCoord = np.asarray([float(XYZ[2]), float(XYZ[1]), float(XYZ[0])])
     voxelCoord = worldToVoxelCoord(worldCoord, Origin, Spacing)
     cutIMG = Image3DOut(voxelCoord, Img)
