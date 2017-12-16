@@ -56,6 +56,7 @@ def converter3D(img_3D):
     return img3D_50, img3D_75, img3D_100
     
 def converter2D(img_3D, size2D=64):
+    
     img2D_X = img_3D[32, :, :]
     img2D_Y = img_3D[:, 32, :]
     img2D_Z = img_3D[:, :, 32]
