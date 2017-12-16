@@ -49,7 +49,7 @@ def train(model_idx, num_epoch, test_index, batch_size):
 
 
     for epoch in range(num_epoch):
-        for train_index in range(1):
+        for train_index in range(10):
             patientDict = None
             candidateList = None
             if train_index != test_index:
@@ -83,13 +83,19 @@ def train(model_idx, num_epoch, test_index, batch_size):
                     loss.backward()
                     optimizer.step()
                     guess, guess_i = IO_T.classFromOutput(outputs)
+                    
 
-                    print '        In mini-batch ', batch_index
-                    print '                   Loss : ', loss.data[0]
-                    TP, FP, FN, TN, correct = S_T.result_Summary(np.array(guess_i), (label.data).cpu().numpy())
+                    if batch_index % 100 == 0:
+                        print '        In mini-batch ', batch_index
+                        print '                   Loss : ', loss.data[0]
+                        TP, FP, FN, TN = S_T.result_Summary(guess_i, label, isPrint=True)
+                        correct = S_T.result_correct(guess_i, label, isPrint=True)
+                    else:
+                        TP, FP, FN, TN = S_T.result_Summary(guess_i, label)
+                        correct = S_T.result_correct(guess_i, label)
                     train_correct_cnt += correct
                 
-            print train_correct_cnt, '/', len(candidateList), '----->', (train_correct_cnt * 100 / len(candidateList)) , '%'
+                print train_correct_cnt, '/', len(candidateList), '----->', (train_correct_cnt * 100 / len(candidateList)) , '%'
 
         torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.pt')
         save_rate = 0.001

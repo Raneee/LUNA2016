@@ -113,7 +113,7 @@ def makePreLists(index, isBalanced=False, isTest=False):
                         infoDict['Label'] = copy.deepcopy(Candidate['Label'])
                         balancedCandidate.append(infoDict)
     else:
-        balanced_ratio = 10
+        balanced_ratio = 100
         for patient in patientDict:
             c_p_cnt = 0
             c_n_cnt = 0

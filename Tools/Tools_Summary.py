@@ -1,11 +1,13 @@
 import numpy as np
-def result_Summary(guess_i, label):
+def result_Summary(guess_i, label, isPrint=False):
+    guess_i = np.array(guess_i)
+    label = (label.data).cpu().numpy()
+
+
     TP = 0
     FP = 0
     FN = 0
     TN = 0
-
-
 
     correct = np.sum((guess_i) == (label))
     for idx in range(len(guess_i)):
@@ -20,7 +22,15 @@ def result_Summary(guess_i, label):
             else:
                 TN += 1
                 
-    print '                   Accuracy : ', correct ,'/', label.shape[0], '----->', (correct * 100 / label.shape[0]) , '%'
-    print '                   TP : ', TP, ' FP : ', FP, ' FN : ', FN, ' TN : ', TN
-    return TP, FP, FN, TN, correct
+    if isPrint:
+        print '                   TP : ', TP, ' FP : ', FP, ' FN : ', FN, ' TN : ', TN
+    return TP, FP, FN, TN
 
+
+def result_correct(guess_i, label, isPrint=False):
+    guess_i = np.array(guess_i)
+    label = (label.data).cpu().numpy()
+    correct = np.sum((guess_i) == (label))
+    if isPrint:
+        print '                   Accuracy : ', correct ,'/', label.shape[0], '----->', (correct * 100 / label.shape[0]) , '%'
+    return correct
