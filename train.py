@@ -55,7 +55,7 @@ def train(model_idx, num_epoch, test_index, batch_size):
             if train_index != test_index:
                 train_correct_cnt = 0
                 print '      Train for ', train_index + 1, ' fold'
-                patientDict, candidateList = IO_T.makePreLists(train_index, isBalanced=False)
+                patientDict, candidateList = IO_T.makePreLists(train_index, isBalanced=True)
 
                 print '          Patient Count : ', len(patientDict)
                 print '          Nodule Count : ', len(candidateList)
