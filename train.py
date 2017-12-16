@@ -97,4 +97,4 @@ def train(model_idx, num_epoch, test_index, batch_size):
             save_rate = param_group['lr']            
         f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.txt', 'w')
         f.write(str(batch_size) +',' + str(save_rate))
-    f.close()  
+        f.close()  

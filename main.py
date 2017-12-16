@@ -24,7 +24,8 @@ print
 
 
 if Train_or_Test == 'Train':
-    Train.train(Model_Type, 2, 8, Batch_Size)
+    for test_idx in range(10):
+        Train.train(Model_Type, 10, test_idx, Batch_Size)
 else:
     Test.test(Model_Type, Batch_Size)
 
