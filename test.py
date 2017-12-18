@@ -15,10 +15,11 @@ import DataLoader as DL
 import Tools_Torch as TORCH_T
 import Tools_Image as IMG_T
 import Tools_IO as IO_T
-import Tools_Summary as S_T
+import Tools_Summary as SUMMARY_T
+import Tools_Model as MODEL_T
 
 
-def test(model_idx, batch_size):
+def test(model_idx, num_epoch, batch_size):
 
 
     f = file('../Output/final.csv', 'a')
@@ -29,8 +30,8 @@ def test(model_idx, batch_size):
         print 'Test for ', test_index + 1, ' fold'
 
 
-        model, model_name, batch_size = TORCH_T.model_setter(model_idx, batch_size)
-        model_path, model_epoch, previous_batch_size, previous_learning_rate = IO_T.modelLoader(model_name, test_index)
+        model, model_name, batch_size = MODEL_T.model_setter(model_idx, batch_size)
+        model_path, model_epoch, previous_batch_size, previous_learning_rate = MODEL_T.modelLoader(model_name, test_index, num_epoch)
 
 
 

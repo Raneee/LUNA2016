@@ -14,28 +14,29 @@ import model as MODEL
 import DataLoader as DL
 import Tools_Torch as TORCH_T
 import Tools_IO as IO_T
-import Tools_Summary as S_T
-
+import Tools_Summary as SUMMARY_T
+import Tools_Model as MODEL_T
 
 
 
 def train(model_idx, num_epoch, test_index, batch_size):
 
     
-    model, model_name, batch_size = TORCH_T.model_setter(model_idx, batch_size)
-    model_path, model_epoch, previous_batch_size, previous_learning_rate = IO_T.modelLoader(model_name, test_index)
+    model, model_name, batch_size = MODEL_T.model_setter(model_idx, batch_size)
+    model_path, model_epoch, previous_batch_size, previous_learning_rate = MODEL_T.modelLoader(model_name, test_index)
 
  
 
 
 
     print '\nModel Name : ', model_name
-    print '\nBatch_size : ', batch_size
-    
+    print '\nBatch_Size : ', batch_size
+    print '\nTest_Index : ', test_index
+    print 
     if model_epoch != -1:
         model.load_state_dict(torch.load(model_path))
         print 'Previous Model Loaded!     -> ', model_path
-        print 'Start Epoch : ' , model_epoch	
+        print 'Start Epoch : ' , model_epoch
         learning_rate = previous_learning_rate
         criterion = nn.CrossEntropyLoss()
         optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
@@ -45,9 +46,10 @@ def train(model_idx, num_epoch, test_index, batch_size):
         learning_rate = 0.001
         criterion = nn.CrossEntropyLoss()
         optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
+        model_epoch = 0
 
 
-    for epoch in range(num_epoch):
+    for epoch in range(model_epoch + 1, model_epoch + num_epoch + 1):
         for train_index in range(10):
             patientDict = None
             candidateList = None
@@ -75,8 +77,14 @@ def train(model_idx, num_epoch, test_index, batch_size):
                         outputs = model(img_2D)
                     elif model_idx == 1:
                         outputs = model(img_32, img_48, img_64)
-                    else:
+                    elif model_idx == 2:
                         outputs = model(img_32, img_48, img_64, img_2D)
+                    else:
+                        if img_64.size()[1] == 1:
+                            img_64 = img_64.data.cpu().numpy()
+                            img_64 = np.concatenate((img_64, img_64, img_64), axis = 1) 
+                            img_64 = TORCH_T.to_var(torch.from_numpy(img_64).float())
+                        outputs = model(img_64)
                     loss = criterion(outputs, label)
 
                     loss.backward()
@@ -87,23 +95,23 @@ def train(model_idx, num_epoch, test_index, batch_size):
                     if batch_index % 100 == 0:
                         print '        In mini-batch ', batch_index
                         print '                   Loss : ', loss.data[0]
-                        TP, FP, FN, TN = S_T.result_Summary(guess_i, label, isPrint=True)
-                        correct = S_T.result_correct(guess_i, label, isPrint=True)
+                        TP, FP, FN, TN = SUMMARY_T.result_Summary(guess_i, label, isPrint=True)
+                        correct = SUMMARY_T.result_correct(guess_i, label, isPrint=True)
                     else:
-                        TP, FP, FN, TN = S_T.result_Summary(guess_i, label)
-                        correct = S_T.result_correct(guess_i, label)
+                        TP, FP, FN, TN = SUMMARY_T.result_Summary(guess_i, label)
+                        correct = SUMMARY_T.result_correct(guess_i, label)
                     train_correct_cnt += correct
                     
 
 
 
                 print train_correct_cnt, '/', len(candidateList), '----->', (train_correct_cnt * 100 / len(candidateList)) , '%'
-
-        torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.pt')
+        print 'Model Stored ----------->   ' , model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.pt'
+        torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.pt')
         save_rate = 0.001
         for param_group in optimizer.param_groups:
             save_rate = param_group['lr']            
-        f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.txt', 'w')
+        f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.txt', 'w')
         f.write(str(batch_size) +',' + str(save_rate))
         f.close()  
 
