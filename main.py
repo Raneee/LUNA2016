@@ -27,7 +27,4 @@ if Train_or_Test == 'Train':
     for test_idx in range(10):
         Train.train(Model_Type, Epoch_Cnt, test_idx, Batch_Size)
 else:
-    Test.test(Model_Type, Batch_Size)
-
-
-
+    Test.test(Model_Type, Epoch_Cnt, Batch_Size)
