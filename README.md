@@ -2,7 +2,7 @@
 
 # 실행
 
-    Train
+Train
     
     $ python main.py --TT 'Train' --Model 1 --Batch 64 --Epoch 10
     
@@ -10,8 +10,9 @@
     --Model : 0 / 1 / 2 / ... /
     --Batch : 64 / 128 / 256 / ... /
     --Epoch : None ~ 
-    
-    Test
+
+
+Test
     
     $ python main.py --TT 'Test' --Model 1 --Batch 64 --Epoch 0   
     
