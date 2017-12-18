@@ -48,7 +48,7 @@ def train(model_idx, num_epoch, test_index, batch_size):
 
 
     for epoch in range(num_epoch):
-        for train_index in range(7, 10):
+        for train_index in range(10):
             patientDict = None
             candidateList = None
             if train_index != test_index:
