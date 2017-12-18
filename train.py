@@ -30,8 +30,9 @@ def train(model_idx, num_epoch, test_index, batch_size):
 
 
     print '\nModel Name : ', model_name
-    print '\nBatch_size : ', batch_size
-    
+    print '\nBatch_Size : ', batch_size
+    print '\nTest_Index : ', test_index
+    print 
     if model_epoch != -1:
         model.load_state_dict(torch.load(model_path))
         print 'Previous Model Loaded!     -> ', model_path
@@ -45,9 +46,10 @@ def train(model_idx, num_epoch, test_index, batch_size):
         learning_rate = 0.001
         criterion = nn.CrossEntropyLoss()
         optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
+        model_epoch = 0
 
 
-    for epoch in range(num_epoch):
+    for epoch in range(model_epoch + 1, model_epoch + num_epoch + 1):
         for train_index in range(10):
             patientDict = None
             candidateList = None
@@ -104,12 +106,12 @@ def train(model_idx, num_epoch, test_index, batch_size):
 
 
                 print train_correct_cnt, '/', len(candidateList), '----->', (train_correct_cnt * 100 / len(candidateList)) , '%'
-
-        torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.pt')
+        print 'Model Stored ----------->   ' , model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.pt'
+        torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.pt')
         save_rate = 0.001
         for param_group in optimizer.param_groups:
             save_rate = param_group['lr']            
-        f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.txt', 'w')
+        f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.txt', 'w')
         f.write(str(batch_size) +',' + str(save_rate))
         f.close()  
 
