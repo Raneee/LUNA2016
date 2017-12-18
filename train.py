@@ -67,11 +67,9 @@ def train(model_idx, num_epoch, test_index, batch_size):
                     img_64 = TORCH_T.to_var(torch.from_numpy(batch_img[2]).float())
                     img_2D = TORCH_T.to_var(torch.from_numpy(batch_img[3]).float())
                     label = TORCH_T.to_var(torch.LongTensor(batch_label).view(-1))
-                    #if img_32.size()[0] != 64 or img_32.size()[1] != 1 or img_32.size()[2] != 32 or img_32.size()[3] != 32 or img_32.size()[4] != 32:
-                    print img_32.size(), img_48.size(), img_64.size(), img_2D.size(), label.size()
                     
 
-                    '''
+                    
                     optimizer.zero_grad()
                     if model_idx == 0:
                         outputs = model(img_2D)
@@ -95,10 +93,10 @@ def train(model_idx, num_epoch, test_index, batch_size):
                         TP, FP, FN, TN = S_T.result_Summary(guess_i, label)
                         correct = S_T.result_correct(guess_i, label)
                     train_correct_cnt += correct
-                    '''
+                    
 
 
-'''
+
                 print train_correct_cnt, '/', len(candidateList), '----->', (train_correct_cnt * 100 / len(candidateList)) , '%'
 
         torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.pt')
@@ -108,4 +106,4 @@ def train(model_idx, num_epoch, test_index, batch_size):
         f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(model_epoch + 1) + '.txt', 'w')
         f.write(str(batch_size) +',' + str(save_rate))
         f.close()  
-'''
+
