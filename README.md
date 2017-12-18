@@ -13,5 +13,5 @@
     
     Test
     
-    $ python main.py --TT 'Test' --Model 1 --Batch 64    
+    $ python main.py --TT 'Test' --Model 1 --Batch 64 --Epoch 0   
     
