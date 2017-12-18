@@ -108,12 +108,12 @@ def train(model_idx, test_index, batch_size, isContinue=False):
 
 
             print train_correct_cnt, '/', len(candidateList), '----->', (train_correct_cnt * 100 / len(candidateList)) , '%'
-            print 'Model Stored ----------->   ' , model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.pt'
-            torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.pt')
-            save_rate = 0.001
-            for param_group in optimizer.param_groups:
-                save_rate = param_group['lr']            
-            f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.txt', 'w')
-            f.write(str(batch_size) +',' + str(save_rate))
-            f.close()  
+    print 'Model Stored ----------->   ' , model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.pt'
+    torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.pt')
+    save_rate = 0.001
+    for param_group in optimizer.param_groups:
+        save_rate = param_group['lr']            
+    f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.txt', 'w')
+    f.write(str(batch_size) +',' + str(save_rate))
+    f.close()  
 
