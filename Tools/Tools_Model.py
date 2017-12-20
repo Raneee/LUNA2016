@@ -19,13 +19,17 @@ from collections import OrderedDict
 
 model_names = ['ResNet', '3DNet', '2D3DNet', 'Resnet3D', 'Densenet3D']
 
-def model_setter(idx, isTest=False):
-    default_batch = 64
+def model_setter(idx, img_size=64, batch_size=None, isTest=False):
+    if batch_size != None:
+        default_batch = batch_size
+    else:
+        default_batch = 64
+    
     if idx == 0:
         model_name = 'ResNet'
         batch_size = default_batch
         #model = models.CNNfor2D_Small(64)
-        model = r2.ResNet(18, 64)
+        model = r2.ResNet(18, img_size)
     elif idx == 1:
         model_name = '3DNet'
         batch_size = default_batch
@@ -35,15 +39,15 @@ def model_setter(idx, isTest=False):
         model_name = '2D3DNet'
         batch_size = default_batch
         #model = models.CNNfor2D3D(100)
-        model = models.CNNfor2D3D_DIFF(64)
+        model = models.CNNfor2D3D_DIFF(img_size)
     elif idx == 3:
         model_name = 'Resnet3D'
         batch_size = default_batch
-        model, _ = generate_3Dmodel('resnet', 18, 64, 2, isPretrained=False)
+        model, _ = generate_3Dmodel('resnet', 18, img_size, 2, isPretrained=False)
     else:    
         model_name = 'Densenet3D'
         batch_size = 48
-        model, _ = generate_3Dmodel('densenet', 121, 64, 2, isPretrained=False)
+        model, _ = generate_3Dmodel('densenet', 121, img_size, 2, isPretrained=False)
 
 
     if torch.cuda.is_available():
@@ -55,13 +59,14 @@ def model_setter(idx, isTest=False):
 
 
 
-def modelLoader(model_name, test_index, epoch=-1):
+def modelLoader(model_name, test_index, img_size, epoch=-1):
     model_path = '../Model'
     files = os.listdir(model_path)
     model_list = []
     for file in files:
         if '.pt' in file and (model_name + '____' + str(test_index)) in file:
-            model_list.append(file)
+            if ('__' + str(img_size)) in file: 
+                model_list.append(file)
 
     model_list.sort()
     
@@ -69,17 +74,17 @@ def modelLoader(model_name, test_index, epoch=-1):
         return None, -1, None, None
     else:
         if epoch != -1:
-            model_name = model_name + '____' + str(test_index) + '__' + str(epoch) + '.pt'
+            model_name = model_name + '____' + str(test_index) + '__' + str(epoch) + '__' + str(img_size) + '.pt'
             if os.path.isfile(os.path.join(model_path, model_name)):
                 model_out = os.path.join(model_path, model_name)
                 model_epoch = epoch
             else:
                 print 'NO MODEL!!'
                 model_out = os.path.join(model_path, model_list[-1])
-                model_epoch = int(model_list[-1].split('__')[-1].split('.')[0])
+                model_epoch = int(model_list[-1].split('__')[-2])
         else:
             model_out = os.path.join(model_path, model_list[-1])
-            model_epoch = int(model_list[-1].split('__')[-1].split('.')[0])  
+            model_epoch = int(model_list[-1].split('__')[-2])  
 
 
 
