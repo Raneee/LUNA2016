@@ -46,7 +46,7 @@ def model_setter(idx, img_size=64, batch_size=None, isTest=False):
         model, _ = generate_3Dmodel('resnet', 18, img_size, 2, isPretrained=False)
     else:    
         model_name = 'Densenet3D'
-        batch_size = 48
+        batch_size = 24
         model, _ = generate_3Dmodel('densenet', 121, img_size, 2, isPretrained=False)
 
 

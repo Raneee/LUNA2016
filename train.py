@@ -67,34 +67,6 @@ def train(model_idx, test_index, batch_size, img_size, isContinue=False):
 
 
 
-
-                '''           
-                img_32 = TORCH_T.to_var(torch.from_numpy(batch_img[0]).float())
-                img_48 = TORCH_T.to_var(torch.from_numpy(batch_img[1]).float())
-                img_64 = TORCH_T.to_var(torch.from_numpy(batch_img[2]).float())
-                img_2D = TORCH_T.to_var(torch.from_numpy(batch_img[3]).float())
-
-
-                if model_idx == 0:
-                    outputs = model(img_2D)
-                elif model_idx == 1:
-                    outputs = model(img_32, img_48, img_64)
-                elif model_idx == 2:
-                    outputs = model(img_32, img_48, img_64, img_2D)
-                else:
-                    if img_size == 32:
-                        convert_img = img_32
-                    elif img_size == 64:
-                        convert_img = img_64
-                    else:
-                        convert_img = img_48
-                    if convert_img.size()[1] == 1:
-                        convert_img = convert_img.data.cpu().numpy()
-                        convert_img = np.concatenate((convert_img, convert_img, convert_img), axis = 1) 
-                        convert_img = TORCH_T.to_var(torch.from_numpy(convert_img).float())
-                outputs = model(convert_img)
-                '''
-
                 label = TORCH_T.to_var(torch.LongTensor(batch_label).view(-1))
                 
                 optimizer.zero_grad()
