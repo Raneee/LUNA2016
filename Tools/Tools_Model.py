@@ -17,7 +17,7 @@ import torch.nn.functional as F
 from collections import OrderedDict
 
 
-model_names = ['ResNet', '3DNet', '2D3DNet', 'Resnet3D', 'Densenet3D']
+model_names = ['ResNet', '3DNet', '2D3DNet', 'Resnet3D', 'Densenet3D', 'Densenet2D']
 
 def model_setter(idx, img_size=64, batch_size=None, isTest=False):
     if batch_size != None:
@@ -44,11 +44,14 @@ def model_setter(idx, img_size=64, batch_size=None, isTest=False):
         model_name = 'Resnet3D'
         batch_size = default_batch
         model, _ = generate_3Dmodel('resnet', 18, img_size, 2, isPretrained=False)
-    else:    
+    elif idx == 4:    
         model_name = 'Densenet3D'
         batch_size = 24
         model, _ = generate_3Dmodel('densenet', 121, img_size, 2, isPretrained=False)
-
+    else   
+        model_name = 'Densenet2D'
+        batch_size = default_batch
+        model, _ = d2.DenseNet(121, img_size)
 
     if torch.cuda.is_available():
         model.cuda()
