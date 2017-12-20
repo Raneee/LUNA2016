@@ -35,6 +35,6 @@ def imageOnTorch(img, model_idx, img_size=64):
         if convert_img.size()[1] == 1:
             convert_img = np.concatenate((convert_img, convert_img, convert_img), axis = 1) 
             convert_img = TORCH_T.to_var(torch.from_numpy(convert_img).float())
-
+        print convert_img.size()
         return convert_img
 
