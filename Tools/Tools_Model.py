@@ -51,7 +51,7 @@ def model_setter(idx, img_size=64, batch_size=None, isTest=False):
     else:
         model_name = 'Densenet2D'
         batch_size = default_batch
-        model, _ = d2.DenseNet(121, img_size)
+        model = d2.DenseNet(121, img_size)
 
     if torch.cuda.is_available():
         model.cuda()
