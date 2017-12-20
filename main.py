@@ -7,7 +7,7 @@ parser.add_argument("--TT", type=str, help="Train???? or Test????")
 parser.add_argument("--Model", type=int, help="What Kind of Model????")
 parser.add_argument("--Batch", type=int, help="Batch Size????")
 parser.add_argument("--Epoch", type=int, help="Epoch Count????")
-parser.add_argument("--ImgSize", type=ing, help="Image Size???")
+parser.add_argument("--ImgSize", type=int, help="Image Size???")
 args = parser.parse_args()
 
 
