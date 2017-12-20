@@ -75,8 +75,14 @@ def test(model_idx, num_epoch, batch_size):
                 outputs = model(img_2D)
             elif model_idx == 1:
                 outputs = model(img_32, img_48, img_64)
-            else:
+            elif model_idx == 2:
                 outputs = model(img_32, img_48, img_64, img_2D)
+            else:
+                if img_64.size()[1] == 1:
+                    img_64 = img_64.data.cpu().numpy()
+                    img_64 = np.concatenate((img_64, img_64, img_64), axis = 1) 
+                    img_64 = TORCH_T.to_var(torch.from_numpy(img_64).float())
+                outputs = model(img_64)
             guess, guess_i = IO_T.classFromOutput(outputs)
             lines = IO_T.modify_candidates_V2_OUT(batch_P_ID, batch_XYZ, F.softmax(outputs).data.cpu().numpy())
             for line in lines:
