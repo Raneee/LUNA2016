@@ -48,7 +48,7 @@ def model_setter(idx, img_size=64, batch_size=None, isTest=False):
         model_name = 'Densenet3D'
         batch_size = 24
         model, _ = generate_3Dmodel('densenet', 121, img_size, 2, isPretrained=False)
-    else   
+    else:
         model_name = 'Densenet2D'
         batch_size = default_batch
         model, _ = d2.DenseNet(121, img_size)
