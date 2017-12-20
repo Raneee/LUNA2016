@@ -1,6 +1,7 @@
 import sys
 sys.path.insert(0, 'Tools')
 sys.path.insert(0, 'CFG')
+sys.path.insert(0, 'Script')
 
 
 import torch
@@ -21,8 +22,10 @@ import Tools_Model as MODEL_T
 
 def test(model_idx, num_epoch, batch_size):
 
-
-    f = file('../Output/final.csv', 'a')
+    out_file_path = '../Output/' + MODEL_T.model_names[model_idx] + '_' + str(num_epoch) + '.csv'
+    if os.path.exists(out_file_path):
+        os.remove(out_file_path)
+    f = file(out_file_path, 'a')
     f.write('seriesuid,coordX,coordY,coordZ,probability\n')
 
 
@@ -50,10 +53,10 @@ def test(model_idx, num_epoch, batch_size):
         patientDict = None
         candidateList = None
 
-        patientDict, candidateList = IO_T.makePreLists(train_index, isBalanced=True)
+        patientDict, candidateList = IO_T.makePreLists(test_index, isTest=True)
 
         print '  Patient Count : ', len(patientDict)
-        print '  Nodule Count : ', len(noduleCandidate)
+        print '  Nodule Count : ', len(candidateList)
 
 
 
@@ -68,7 +71,6 @@ def test(model_idx, num_epoch, batch_size):
 
 
 
-            optimizer.zero_grad()
             if model_idx == 0:
                 outputs = model(img_2D)
             elif model_idx == 1:
@@ -76,13 +78,15 @@ def test(model_idx, num_epoch, batch_size):
             else:
                 outputs = model(img_32, img_48, img_64, img_2D)
             guess, guess_i = IO_T.classFromOutput(outputs)
-                    
+            lines = IO_T.modify_candidates_V2_OUT(batch_P_ID, batch_XYZ, F.softmax(outputs).data.cpu().numpy())
+            for line in lines:
+                f.write(str(line))                    
 
             correct = np.sum(np.array(guess_i) == (label.data).cpu().numpy())
             correct_cnt += correct
             if batch_index % 100 == 0:
                 print '  ', batch_index, ' Batch Accuracy : ', correct * 100 / batch_size, '%'
-        print 'Test set (', test_index + 1, ') Accuracy: ', correct_cnt ,'/', len(noduleCandidate), '----->', (correct_cnt * 100 / len(noduleCandidate)) , '%'
+        print 'Test set (', test_index + 1, ') Accuracy: ', correct_cnt ,'/', len(candidateList), '----->', (correct_cnt * 100 / len(candidateList)) , '%'
         print 
     f.close()
 

@@ -27,8 +27,6 @@ def train(model_idx, test_index, batch_size, isContinue=False):
 
  
 
-
-
     print '\nModel Name : ', model_name
     print '\nBatch_Size : ', batch_size
     print '\nTest_Index : ', test_index

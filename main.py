@@ -28,4 +28,4 @@ if Train_or_Test == 'Train':
         for test_idx in range(10):
             Train.train(Model_Type, test_idx, Batch_Size, isContinue=True)
 else:
-    Test.test(Model_Type, Batch_Size)
+    Test.test(Model_Type, Epoch_Cnt, Batch_Size)

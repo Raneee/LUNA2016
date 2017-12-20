@@ -151,9 +151,9 @@ def modify_candidates_V2_OUT(p_ID, XYZ, Prob):
     for idx in range(len(p_ID)):
 
         input_p_id = p_ID[idx]
-        input_x = XYZ[0][idx]
-        input_y = XYZ[1][idx]
-        input_z = XYZ[2][idx]
+        input_x = XYZ[idx][0]
+        input_y = XYZ[idx][1]
+        input_z = XYZ[idx][2]
         input_Prob = Prob[idx][1]
         input_list = [input_p_id, input_x, input_y, input_z, input_Prob]
 
