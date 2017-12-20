@@ -63,16 +63,18 @@ def train(model_idx, test_index, batch_size, img_size, isContinue=False):
     
             for batch_index in range((len(candidateList) / batch_size)):
                 batch_img, batch_label, batch_P_ID, batch_XYZ = DL.makeBatch(batch_index, batch_size, candidateList, patientDict)
-            
+
+
+
+
+
+                '''           
                 img_32 = TORCH_T.to_var(torch.from_numpy(batch_img[0]).float())
                 img_48 = TORCH_T.to_var(torch.from_numpy(batch_img[1]).float())
                 img_64 = TORCH_T.to_var(torch.from_numpy(batch_img[2]).float())
                 img_2D = TORCH_T.to_var(torch.from_numpy(batch_img[3]).float())
-                label = TORCH_T.to_var(torch.LongTensor(batch_label).view(-1))
-                    
 
-                    
-                optimizer.zero_grad()
+
                 if model_idx == 0:
                     outputs = model(img_2D)
                 elif model_idx == 1:
@@ -91,6 +93,14 @@ def train(model_idx, test_index, batch_size, img_size, isContinue=False):
                         convert_img = np.concatenate((convert_img, convert_img, convert_img), axis = 1) 
                         convert_img = TORCH_T.to_var(torch.from_numpy(convert_img).float())
                 outputs = model(convert_img)
+                '''
+
+                label = TORCH_T.to_var(torch.LongTensor(batch_label).view(-1))
+                
+                optimizer.zero_grad()
+                outputs = model(Torch_T.imageOnTorch(batch_img, model_idx, img_size=img_size))
+
+
                 loss = criterion(outputs, label)
 
                 loss.backward()
