@@ -3,7 +3,9 @@ import sys
 sys.path.insert(0, 'Model')
 import model as models
 import resnet3D as r3
-
+import densenet3D as d3
+import resnet2D as r2
+import densenet2D as d2
 
 import torch
 import torch.nn as nn
@@ -15,13 +17,15 @@ import torch.nn.functional as F
 from collections import OrderedDict
 
 
+model_names = ['ResNet', '3DNet', '2D3DNet', 'Resnet3D', 'Densenet3D']
 
 def model_setter(idx, isTest=False):
     default_batch = 64
     if idx == 0:
         model_name = 'ResNet'
         batch_size = default_batch
-        model = models.CNNfor2D_Small(2)
+        #model = models.CNNfor2D_Small(64)
+        model = r2.resnet(64)
     elif idx == 1:
         model_name = '3DNet'
         batch_size = default_batch
@@ -31,13 +35,17 @@ def model_setter(idx, isTest=False):
         model_name = '2D3DNet'
         batch_size = default_batch
         #model = models.CNNfor2D3D(100)
-        model = models.CNNfor2D3D_DIFF()
-    else:
+        model = models.CNNfor2D3D_DIFF(64)
+    elif idx == 3:
         model_name = 'Resnet3D'
         batch_size = default_batch
         model, _ = generate_3Dmodel('resnet', 18, 64, 2, isPretrained=False)
-        
-        
+    else:    
+        model_name = 'Densenet3D'
+        batch_size = 48
+        model, _ = generate_3Dmodel('densenet', 121, 64, 2, isPretrained=False)
+
+
     if torch.cuda.is_available():
         model.cuda()
     if torch.cuda.device_count() > 1:
@@ -120,12 +128,20 @@ def generate_3Dmodel(model_name, model_depth, img_size, num_class, isPretrained=
                                          sample_size=img_size)
 
     
-    '''    
-    if torch.cuda.is_available():    
-        model = model.cuda()
-    if torch.cuda.device_count() > 1:
-        model = nn.DataParallel(model, device_ids=range(torch.cuda.device_count()))
-    '''    
+    elif model_name == 'densenet':
+        if model_depth == 121:
+            model = d3.densenet121(num_classes=num_class, sample_size=img_size)
+        elif model_depth == 169:
+            model = d3.densenet169(num_classes=num_class, sample_size=img_size)
+        elif model_depth == 201:
+            model = d3.densenet201(num_classes=num_class, sample_size=img_size)
+        elif model_depth == 264:
+            model = d3.densenet264(num_classes=num_class, sample_size=img_size)    
+    
+    
+    
+    
+    
 
     if isPretrained:
         files = os.listdir('../Model/PretrainedWeight')
@@ -134,20 +150,25 @@ def generate_3Dmodel(model_name, model_depth, img_size, num_class, isPretrained=
             if (model_name + '-' + str(model_depth)) in file:
                 model_path = os.path.join('./Model/PretrainedWeight', file)
         model_dict = model.state_dict()
-        
-
-
         pretrain = torch.load(model_path)
 
-        
-        new_pretrain_dict = OrderedDict()
-        for k, v in pretrain['state_dict'].items():
-            name = k[7:]
-            if 'fc' not in name:
-                new_pretrain_dict[name] = v        
-        model_dict.update(new_pretrain_dict)
-        
-        model.load_state_dict(model_dict)
-        model.fc = nn.Linear(model.fc.in_features, num_class)
+        if model_name == 'resnet':
+            new_pretrain_dict = OrderedDict()
+            for k, v in pretrain['state_dict'].items():
+                name = k[7:]
+                if 'fc' not in name:
+                    new_pretrain_dict[name] = v        
+            model_dict.update(new_pretrain_dict)
+            model.load_state_dict(model_dict)
+            model.fc = nn.Linear(model.fc.in_features, num_class)
+        elif model_name == 'densenet':
+            new_pretrain_dict = OrderedDict()
+            for k, v in pretrain['state_dict'].items():
+                name = k[7:]
+                if 'classifier' not in name:
+                    new_pretrain_dict[name] = v        
+            model_dict.update(new_pretrain_dict)
+            model.load_state_dict(model_dict)
+            model.classifier = nn.Linear(model.classifier.in_features, num_class)
         
     return model, model.parameters()
