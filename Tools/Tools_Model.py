@@ -25,7 +25,7 @@ def model_setter(idx, isTest=False):
         model_name = 'ResNet'
         batch_size = default_batch
         #model = models.CNNfor2D_Small(64)
-        model = r2.ResNet(64)
+        model = r2.ResNet(18, 64)
     elif idx == 1:
         model_name = '3DNet'
         batch_size = default_batch
