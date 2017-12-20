@@ -19,10 +19,10 @@ import Tools_Model as MODEL_T
 
 
 
-def train(model_idx, test_index, batch_size, isContinue=False):
+def train(model_idx, test_index, batch_size, img_size, isContinue=False):
 
     
-    model, model_name, batch_size = MODEL_T.model_setter(model_idx, batch_size)
+    model, model_name, batch_size = MODEL_T.model_setter(model_idx)
     model_path, model_epoch, previous_batch_size, previous_learning_rate = MODEL_T.modelLoader(model_name, test_index)
 
  
@@ -80,11 +80,17 @@ def train(model_idx, test_index, batch_size, isContinue=False):
                 elif model_idx == 2:
                     outputs = model(img_32, img_48, img_64, img_2D)
                 else:
-                    if img_64.size()[1] == 1:
-                        img_64 = img_64.data.cpu().numpy()
-                        img_64 = np.concatenate((img_64, img_64, img_64), axis = 1) 
-                        img_64 = TORCH_T.to_var(torch.from_numpy(img_64).float())
-                    outputs = model(img_64)
+                if img_size == 32:
+                    convert_img = img_32
+                elif img_size == 64:
+                    convert_img = img_64
+                else:
+                    convert_img = img_48
+                if convert_img.size()[1] == 1:
+                    convert_img = convert_img.data.cpu().numpy()
+                    convert_img = np.concatenate((convert_img, convert_img, convert_img), axis = 1) 
+                    convert_img = TORCH_T.to_var(torch.from_numpy(convert_img).float())
+                outputs = model(convert_img)
                 loss = criterion(outputs, label)
 
                 loss.backward()
@@ -106,12 +112,12 @@ def train(model_idx, test_index, batch_size, isContinue=False):
 
 
             print train_correct_cnt, '/', len(candidateList), '----->', (train_correct_cnt * 100 / len(candidateList)) , '%'
-    print 'Model Stored ----------->   ' , model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.pt'
-    torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.pt')
+    print 'Model Stored ----------->   ' , model_name + '____' + str(test_index)+ '__'+ str(epoch) + '__' + str(img_size) + '.pt'
+    torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '__' + str(img_size) + '.pt')
     save_rate = 0.001
     for param_group in optimizer.param_groups:
         save_rate = param_group['lr']            
-    f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '.txt', 'w')
+    f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '__' + str(img_size) + '.txt', 'w')
     f.write(str(batch_size) +',' + str(save_rate))
     f.close()  
 

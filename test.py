@@ -20,8 +20,8 @@ import Tools_Summary as SUMMARY_T
 import Tools_Model as MODEL_T
 from noduleCADEvaluationLUNA16 import *
 
-def test(model_idx, num_epoch, batch_size):
-    out_name = MODEL_T.model_names[model_idx] + '_' + str(num_epoch)
+def test(model_idx, num_epoch, batch_size, img_size):
+    out_name = MODEL_T.model_names[model_idx] + '_' + str(num_epoch) + '_' + str(img_size)
     out_file_path = '../Output/' + out_name + '.csv'
     if os.path.exists(out_file_path):
         os.remove(out_file_path)
@@ -78,11 +78,17 @@ def test(model_idx, num_epoch, batch_size):
             elif model_idx == 2:
                 outputs = model(img_32, img_48, img_64, img_2D)
             else:
-                if img_64.size()[1] == 1:
-                    img_64 = img_64.data.cpu().numpy()
-                    img_64 = np.concatenate((img_64, img_64, img_64), axis = 1) 
-                    img_64 = TORCH_T.to_var(torch.from_numpy(img_64).float())
-                outputs = model(img_64)
+                if img_size == 32:
+                    convert_img = img_32
+                elif img_size == 64:
+                    convert_img = img_64
+                else:
+                    convert_img = img_48
+                if convert_img.size()[1] == 1:
+                    convert_img = convert_img.data.cpu().numpy()
+                    convert_img = np.concatenate((convert_img, convert_img, convert_img), axis = 1) 
+                    convert_img = TORCH_T.to_var(torch.from_numpy(convert_img).float())
+                outputs = model(convert_img)
             guess, guess_i = IO_T.classFromOutput(outputs)
             lines = IO_T.modify_candidates_V2_OUT(batch_P_ID, batch_XYZ, F.softmax(outputs).data.cpu().numpy())
             for line in lines:
