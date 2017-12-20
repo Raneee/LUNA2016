@@ -98,7 +98,7 @@ def train(model_idx, test_index, batch_size, img_size, isContinue=False):
                 label = TORCH_T.to_var(torch.LongTensor(batch_label).view(-1))
                 
                 optimizer.zero_grad()
-                outputs = model(Torch_T.imageOnTorch(batch_img, model_idx, img_size=img_size))
+                outputs = model(TORCH_T.imageOnTorch(batch_img, model_idx, img_size=img_size))
 
 
                 loss = criterion(outputs, label)

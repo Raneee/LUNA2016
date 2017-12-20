@@ -90,7 +90,7 @@ def test(model_idx, num_epoch, batch_size, img_size):
                     convert_img = TORCH_T.to_var(torch.from_numpy(convert_img).float())
                 outputs = model(convert_img)
             '''
-            outputs = model(Torch_T.imageOnTorch(batch_img, model_idx, img_size=img_size))
+            outputs = model(TORCH_T.imageOnTorch(batch_img, model_idx, img_size=img_size))
             guess, guess_i = IO_T.classFromOutput(outputs)
             lines = IO_T.modify_candidates_V2_OUT(batch_P_ID, batch_XYZ, F.softmax(outputs).data.cpu().numpy())
             for line in lines:
