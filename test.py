@@ -33,7 +33,7 @@ def test(model_idx, num_epoch, batch_size, img_size):
         print 'Test for ', test_index + 1, ' fold'
 
 
-        model, model_name, batch_size = MODEL_T.model_setter(model_idx, batch_size)
+        model, model_name, batch_size = MODEL_T.model_setter(model_idx, img_size, batch_size)
         model_path, model_epoch, previous_batch_size, previous_learning_rate = MODEL_T.modelLoader(model_name, test_index, num_epoch)
 
 
@@ -67,7 +67,7 @@ def test(model_idx, num_epoch, batch_size, img_size):
             img_48 = TORCH_T.to_var(torch.from_numpy(batch_img[1]).float())
             img_64 = TORCH_T.to_var(torch.from_numpy(batch_img[2]).float())
             img_2D = TORCH_T.to_var(torch.from_numpy(batch_img[3]).float())
-            label = TORCH_T.to_var(torch.LongTensor(batch_label).view(-1))
+            
 
 
 
@@ -90,6 +90,7 @@ def test(model_idx, num_epoch, batch_size, img_size):
                     convert_img = TORCH_T.to_var(torch.from_numpy(convert_img).float())
                 outputs = model(convert_img)
             '''
+            label = TORCH_T.to_var(torch.LongTensor(batch_label).view(-1))
             outputs = model(TORCH_T.imageOnTorch(batch_img, model_idx, img_size=img_size))
             guess, guess_i = IO_T.classFromOutput(outputs)
             lines = IO_T.modify_candidates_V2_OUT(batch_P_ID, batch_XYZ, F.softmax(outputs).data.cpu().numpy())
