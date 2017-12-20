@@ -80,16 +80,16 @@ def train(model_idx, test_index, batch_size, img_size, isContinue=False):
                 elif model_idx == 2:
                     outputs = model(img_32, img_48, img_64, img_2D)
                 else:
-                if img_size == 32:
-                    convert_img = img_32
-                elif img_size == 64:
-                    convert_img = img_64
-                else:
-                    convert_img = img_48
-                if convert_img.size()[1] == 1:
-                    convert_img = convert_img.data.cpu().numpy()
-                    convert_img = np.concatenate((convert_img, convert_img, convert_img), axis = 1) 
-                    convert_img = TORCH_T.to_var(torch.from_numpy(convert_img).float())
+                    if img_size == 32:
+                        convert_img = img_32
+                    elif img_size == 64:
+                        convert_img = img_64
+                    else:
+                        convert_img = img_48
+                    if convert_img.size()[1] == 1:
+                        convert_img = convert_img.data.cpu().numpy()
+                        convert_img = np.concatenate((convert_img, convert_img, convert_img), axis = 1) 
+                        convert_img = TORCH_T.to_var(torch.from_numpy(convert_img).float())
                 outputs = model(convert_img)
                 loss = criterion(outputs, label)
 
