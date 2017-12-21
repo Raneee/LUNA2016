@@ -9,6 +9,7 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 from torchvision import datasets, models, transforms
 import numpy as np
+import math
 import os
 import model as MODEL
 import DataLoader as DL
@@ -23,7 +24,8 @@ def train(model_idx, test_index, batch_size, img_size, isContinue=False):
 
     
     model, model_name, batch_size = MODEL_T.model_setter(model_idx, img_size, batch_size)
-    model_path, model_epoch, previous_batch_size, previous_learning_rate = MODEL_T.modelLoader(model_name, test_index, img_size)
+    model_path, model_epoch = MODEL_T.modelLoader(model_name, test_index, img_size)
+    #model_path, model_epoch, previous_batch_size, previous_learning_rate = MODEL_T.modelLoader(model_name, test_index, img_size)
 
  
 
@@ -31,24 +33,27 @@ def train(model_idx, test_index, batch_size, img_size, isContinue=False):
     print '\nBatch_Size : ', batch_size
     print '\nTest_Index : ', test_index
     print 
+
+
+
+
     if isContinue and model_path != None:
         model.load_state_dict(torch.load(model_path))
         print 'Previous Model Loaded!     -> ', model_path
         print 'Start Epoch : ' , model_epoch 
-        learning_rate = previous_learning_rate
-        criterion = nn.CrossEntropyLoss()
-        optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
+        #learning_rate = previous_learning_rate
+
         epoch = model_epoch + 1
     else:
         print 'No Model Loaded!'
         print 'Start Epoch : 0'	
-        learning_rate = 0.001
-        criterion = nn.CrossEntropyLoss()
-        optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
         epoch = 0        
 
-
-
+    
+    learning_rate = 0.001 / float(pow(2, epoch))
+    print 'Learning Rate :', learning_rate
+    criterion = nn.CrossEntropyLoss()
+    optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
 
     for train_index in range(10):
         patientDict = None
@@ -94,12 +99,16 @@ def train(model_idx, test_index, batch_size, img_size, isContinue=False):
 
 
             print train_correct_cnt, '/', len(candidateList), '----->', (train_correct_cnt * 100 / len(candidateList)) , '%'
-    print 'Model Stored ----------->   ' , model_name + '____' + str(test_index)+ '__'+ str(epoch) + '__' + str(img_size) + '.pt'
-    torch.save(model.state_dict(), '../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '__' + str(img_size) + '.pt')
-    save_rate = 0.001
-    for param_group in optimizer.param_groups:
-        save_rate = param_group['lr']            
-    f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '__' + str(img_size) + '.txt', 'w')
-    f.write(str(batch_size) +',' + str(save_rate))
-    f.close()  
+    save_model_name = model_name + '____' + str(test_index)+ '__'+ str(epoch) + '__' + str(img_size) + '.pt'
+    save_model_path = os.path.join('../Model', model_name)
+    os.mkdir(save_model_path)
+    torch.save(model.state_dict(), os.path.join(save_model_path, save_model_name))
+
+    print 'Model Stored ----------->   ' , save_model_name
+    #save_rate = 0.001
+    #for param_group in optimizer.param_groups:
+    #    save_rate = param_group['lr']            
+    #f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '__' + str(img_size) + '.txt', 'w')
+    #f.write(str(batch_size) +',' + str(save_rate))
+    #f.close()  
 
