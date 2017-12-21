@@ -11,6 +11,7 @@ def to_var(x, volatile=False):
     return Variable(x, volatile=volatile)
 
 def imageOnTorch(img, model_idx, img_size=64):
+    print model_idx, '!@!@!@!@!@!@'
     if model_idx == 0 and model_idx == 5:
         img_32 = to_var(torch.from_numpy(img[3]).float())
         return img_32
@@ -20,6 +21,7 @@ def imageOnTorch(img, model_idx, img_size=64):
         img_64 = to_var(torch.from_numpy(img[2]).float())
         return img_32, img_48, img_64
     elif model_idx == 2:
+        
         img_32 = to_var(torch.from_numpy(img[0]).float())
         img_48 = to_var(torch.from_numpy(img[1]).float())
         img_64 = to_var(torch.from_numpy(img[2]).float())
