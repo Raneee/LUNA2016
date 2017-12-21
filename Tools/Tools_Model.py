@@ -63,7 +63,7 @@ def model_setter(idx, img_size=64, batch_size=None, isTest=False):
 
 
 def modelLoader(model_name, test_index, img_size, epoch=-1):
-    model_path = '../Model'
+    model_path = os.path.join('../Model', model_name)
     files = os.listdir(model_path)
     model_list = []
     for file in files:
@@ -91,15 +91,15 @@ def modelLoader(model_name, test_index, img_size, epoch=-1):
 
 
 
-        f = open(model_out.replace('.pt', '.txt'), 'r')
-        line = f.readline()
+        #f = open(model_out.replace('.pt', '.txt'), 'r')
+        #line = f.readline()
         
-        batch_size = int(line.split(',')[0])
-        learning_rate = float(line.split(',')[1])
-        f.close()
+        #batch_size = int(line.split(',')[0])
+        #learning_rate = float(line.split(',')[1])
+        #f.close()
 
     
-        return model_out, model_epoch, batch_size, learning_rate
+        return model_out, model_epoch#, batch_size, learning_rate
 
 
 
