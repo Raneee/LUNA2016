@@ -9,7 +9,7 @@ from functools import partial
 
 
 class ResNet(nn.Module):
-    def __init__(self, model_depth, sample_size, pretrained=True, num_classes=2):
+    def __init__(self, model_depth, sample_size, pretrained=True, num_classes=2, without_fc=False):
         super(ResNet, self).__init__()
         if model_depth == 18:
             CNN_model = models.resnet18(pretrained=pretrained)
@@ -30,10 +30,13 @@ class ResNet(nn.Module):
         self.features.append(nn.AvgPool2d(last_size))
         self.CNN_model = nn.Sequential(*self.features)
         self.fc = nn.Linear(self.num_ftrs, num_classes)
-        
+        self.without_fc = without_fc
         
     def forward(self, images):
-        out = self.CNN_model(images)
+        out = self.CNN_model(images) 
         fin_feature = out.view(images.size(0), -1)
-        out = self.fc(fin_feature)
-        return out
+        if self.without_fc:
+            return fin_feature
+        else:
+            out = self.fc(fin_feature)
+            return out

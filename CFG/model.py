@@ -184,11 +184,6 @@ class CNNfor2D3D_DIFF(nn.Module):
 
 
 
-
-
-
-
-
 '''
 class CNNfor2D(nn.Module):
     def __init__(self, out_size):
@@ -349,17 +344,4 @@ class CNNfor2D3D(nn.Module):
         return out
 '''    
     
-'''
-class FCforMerge(nn.Module):
-    def __init__(self, input_size):
-        super(FCforMerge, self).__init__()
-        self.fc1 = nn.Linear(input_size, 500)
-        self.fc2 = nn.Linear(500, 2)
-    
-    def forward(self, vec2D, vec3D):
-        concat = torch.cat([vec2D, vec3D], 1)
-        out = F.relu(self.fc1(concat))
-        out = self.fc2(out)
-        
-        return out
-'''
+

@@ -67,6 +67,8 @@ class _DenseLayer(nn.Sequential):
                                             kernel_size=3, stride=1, padding=1, bias=False))
         self.drop_rate = drop_rate
 
+
+
     def forward(self, x):
         new_features = super(_DenseLayer, self).forward(x)
         if self.drop_rate > 0:
@@ -104,7 +106,7 @@ class DenseNet(nn.Module):
         num_classes (int) - number of classification classes
     """
     def __init__(self, sample_size, growth_rate=32, block_config=(6, 12, 24, 16),
-                 num_init_features=64, bn_size=4, drop_rate=0, num_classes=1000):
+                 num_init_features=64, bn_size=4, drop_rate=0, num_classes=1000, without_fc=False):
 
         super(DenseNet, self).__init__()
 
@@ -139,6 +141,8 @@ class DenseNet(nn.Module):
         # Linear layer
         self.classifier = nn.Linear(num_features, num_classes)
 
+        self.without_fc = without_fc
+
     def forward(self, x):
         last_size = int(math.floor(self.sample_size / 32))
         features = self.features(x)
@@ -148,5 +152,52 @@ class DenseNet(nn.Module):
         last_size = int(math.floor(self.sample_size / 32))
         #out = F.avg_pool3d(out, kernel_size=(last_duration, last_size, last_size)).view(features.size(0), -1)
         out = F.avg_pool3d(out, kernel_size=(last_size, last_size, last_size)).view(features.size(0), -1)
-        out = self.classifier(out)
-        return out
+
+
+        if self.without_fc :
+            return out
+        else:
+            out = self.classifier(out)
+            return out
+
+
+
+
+
+
+
+def generate_3DDensenet(model_name, model_depth, img_size, num_class, isPretrained=False, without_fc=False):
+
+    if model_depth == 121:
+        model = densenet121(num_classes=num_class, sample_size=img_size, without_fc=without_fc)
+    elif model_depth == 169:
+        model = densenet169(num_classes=num_class, sample_size=img_size, without_fc=without_fc)
+    elif model_depth == 201:
+        model = densenet201(num_classes=num_class, sample_size=img_size, without_fc=without_fc)
+    elif model_depth == 264:
+        model = densenet264(num_classes=num_class, sample_size=img_size, without_fc=without_fc)    
+    
+    
+    
+    
+    
+
+    if isPretrained:
+        files = os.listdir('../Model/PretrainedWeight')
+        model_path = None
+        for file in files:
+            if (model_name + '-' + str(model_depth)) in file:
+                model_path = os.path.join('./Model/PretrainedWeight', file)
+        model_dict = model.state_dict()
+        pretrain = torch.load(model_path)
+
+        new_pretrain_dict = OrderedDict()
+        for k, v in pretrain['state_dict'].items():
+            name = k[7:]
+            if 'classifier' not in name:
+                new_pretrain_dict[name] = v        
+        model_dict.update(new_pretrain_dict)
+        model.load_state_dict(model_dict)
+        model.classifier = nn.Linear(model.classifier.in_features, num_class)
+        
+    return model, model.parameters()
