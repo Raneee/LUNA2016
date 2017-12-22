@@ -96,7 +96,7 @@ class Bottleneck(nn.Module):
 
 class ResNet(nn.Module):
 
-    def __init__(self, block, layers, sample_size, shortcut_type='B', num_classes=400):
+    def __init__(self, block, layers, sample_size, shortcut_type='B', num_classes=400, without_fc=False):
         self.inplanes = 64
         super(ResNet, self).__init__()
         #self.conv1 = nn.Conv3d(3, 64, kernel_size=7, stride=(1, 2, 2),
@@ -117,6 +117,7 @@ class ResNet(nn.Module):
         last_size = int(math.ceil(sample_size / 32.))
         self.avgpool = nn.AvgPool3d((last_size, last_size, last_size), stride=1)
         self.fc = nn.Linear(512 * block.expansion, num_classes)
+        self.without_fc = without_fc
 
         for m in self.modules():
             if isinstance(m, nn.Conv3d):
@@ -159,8 +160,11 @@ class ResNet(nn.Module):
         x = self.layer4(x)
         x = self.avgpool(x)
         x = x.view(x.size(0), -1)
-        x = self.fc(x)
-        return x
+        if self.without_fc :
+            return x
+        else:
+            x = self.fc(x)
+            return x
 
 
 def get_fine_tuning_parameters(model, ft_begin_index):
@@ -225,3 +229,51 @@ def resnet200(**kwargs):
     """
     model = ResNet(Bottleneck, [3, 24, 36, 3], **kwargs)
     return model
+
+
+
+
+
+def generate_3DResnet(model_name, model_depth, img_size, num_class, isPretrained=False, without_fc=False):
+
+    if model_depth == 10:
+        model = resnet10(num_classes=num_class, shortcut_type='B',
+                                        sample_size=img_size, without_fc=without_fc)
+    elif model_depth == 18:
+        model = resnet18(num_classes=num_class, shortcut_type='B',
+                                        sample_size=img_size, without_fc=without_fc)
+    elif model_depth == 34:
+        model = resnet34(num_classes=num_class, shortcut_type='B',
+                                        sample_size=img_size, without_fc=without_fc)
+    elif model_depth == 50:
+        model = resnet50(num_classes=num_class, shortcut_type='B',
+                                        sample_size=img_size, without_fc=without_fc)
+    elif model_depth == 101:
+        model = resnet101(num_classes=num_class, shortcut_type='B',
+                                         sample_size=img_size, without_fc=without_fc)
+    elif model_depth == 152:
+        model = resnet152(num_classes=num_class, shortcut_type='B',
+                                         sample_size=img_size, without_fc=without_fc)
+    elif model_depth == 200:
+        model = resnet200(num_classes=num_class, shortcut_type='B',
+                                         sample_size=img_size, without_fc=without_fc)
+
+    if isPretrained:
+        files = os.listdir('../Model/PretrainedWeight')
+        model_path = None
+        for file in files:
+            if (model_name + '-' + str(model_depth)) in file:
+                model_path = os.path.join('./Model/PretrainedWeight', file)
+        model_dict = model.state_dict()
+        pretrain = torch.load(model_path)
+
+        new_pretrain_dict = OrderedDict()
+        for k, v in pretrain['state_dict'].items():
+            name = k[7:]
+            if 'fc' not in name:
+                new_pretrain_dict[name] = v        
+        model_dict.update(new_pretrain_dict)
+        model.load_state_dict(model_dict)
+        model.fc = nn.Linear(model.fc.in_features, num_class)
+        
+    return model, model.parameters()

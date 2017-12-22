@@ -1,0 +1,31 @@
+Train or Test :  Train
+Model Type :  3
+Batch Size :  None
+Epoch Count :  10
+Image Size :  48
+
+
+Model Name :  Resnet3D
+
+Batch_Size :  64
+
+Test_Index :  0
+
+Previous Model Loaded!     ->  ../Model/Resnet3D/Resnet3D____0__0__48.pt
+Start Epoch :  0
+Learning Rate : 0.0005
+      Train for  2  fold
+          Patient Count :  89
+          Nodule Count :  33035
+        In mini-batch  0
+                   Loss :  0.331588029861
+                   TP :  27  FP :  1  FN :  4  TN :  32
+                   Accuracy :  59 / 64 -----> 92 %
+        In mini-batch  100
+                   Loss :  0.0788113921881
+                   TP :  38  FP :  2  FN :  0  TN :  24
+                   Accuracy :  62 / 64 -----> 96 %
+        In mini-batch  200
+                   Loss :  0.0560189113021
+                   TP :  29  FP :  1  FN :  0  TN :  34
+                   Accuracy :  63 / 64 -----> 98 %

@@ -26,6 +26,10 @@ def imageOnTorch(img, model_idx, img_size=64):
         img_64 = to_var(torch.from_numpy(img[2]).float())
         img_2D = to_var(torch.from_numpy(img[3]).float())
         return img_32, img_48, img_64, img_2D
+    elif model_idx == 6:
+        img_64 = to_var(torch.from_numpy(img[2]).float())
+        img_2D = to_var(torch.from_numpy(img[3]).float())
+        return img_2D, img_64
     else:
         if img_size == 32:
             convert_img = img[0]
