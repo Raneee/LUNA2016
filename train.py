@@ -101,10 +101,12 @@ def train(model_idx, test_index, batch_size, img_size, isContinue=False):
             print train_correct_cnt, '/', len(candidateList), '----->', (train_correct_cnt * 100 / len(candidateList)) , '%'
     save_model_name = model_name + '____' + str(test_index)+ '__'+ str(epoch) + '__' + str(img_size) + '.pt'
     save_model_path = os.path.join('../Model', model_name)
-    os.mkdir(save_model_path)
+    if not os.path.isdir(save_model_path):
+        os.mkdir(save_model_path)
     torch.save(model.state_dict(), os.path.join(save_model_path, save_model_name))
 
     print 'Model Stored ----------->   ' , save_model_name
+    
     #save_rate = 0.001
     #for param_group in optimizer.param_groups:
     #    save_rate = param_group['lr']            
