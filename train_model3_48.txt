@@ -1,0 +1,246 @@
+Train or Test :  Train
+Model Type :  3
+Batch Size :  None
+Epoch Count :  10
+Image Size :  48
+
+
+Model Name :  Resnet3D
+
+Batch_Size :  64
+
+Test_Index :  0
+
+Previous Model Loaded!     ->  ../Model/Resnet3D/Resnet3D____0__0__48.pt
+Start Epoch :  0
+Learning Rate : 0.0005
+      Train for  2  fold
+          Patient Count :  89
+          Nodule Count :  33035
+        In mini-batch  0
+                   Loss :  0.333523720503
+                   TP :  28  FP :  0  FN :  4  TN :  32
+                   Accuracy :  60 / 64 -----> 93 %
+        In mini-batch  100
+                   Loss :  0.0567596703768
+                   TP :  34  FP :  2  FN :  0  TN :  28
+                   Accuracy :  62 / 64 -----> 96 %
+        In mini-batch  200
+                   Loss :  0.00858133193105
+                   TP :  37  FP :  0  FN :  0  TN :  27
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  300
+                   Loss :  0.0146771539003
+                   TP :  34  FP :  0  FN :  0  TN :  30
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  400
+                   Loss :  0.0119840018451
+                   TP :  35  FP :  0  FN :  0  TN :  29
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  500
+                   Loss :  0.0568719878793
+                   TP :  23  FP :  1  FN :  0  TN :  40
+                   Accuracy :  63 / 64 -----> 98 %
+32584 / 33035 -----> 98 %
+      Train for  3  fold
+          Patient Count :  89
+          Nodule Count :  34314
+        In mini-batch  0
+                   Loss :  0.0980010330677
+                   TP :  35  FP :  0  FN :  1  TN :  28
+                   Accuracy :  63 / 64 -----> 98 %
+        In mini-batch  100
+                   Loss :  0.0463245734572
+                   TP :  34  FP :  0  FN :  2  TN :  28
+                   Accuracy :  62 / 64 -----> 96 %
+        In mini-batch  200
+                   Loss :  0.00623637065291
+                   TP :  37  FP :  0  FN :  0  TN :  27
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  300
+                   Loss :  0.00376420468092
+                   TP :  31  FP :  0  FN :  0  TN :  33
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  400
+                   Loss :  0.0069548599422
+                   TP :  33  FP :  0  FN :  0  TN :  31
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  500
+                   Loss :  0.0184886027128
+                   TP :  39  FP :  1  FN :  0  TN :  24
+                   Accuracy :  63 / 64 -----> 98 %
+33908 / 34314 -----> 98 %
+      Train for  4  fold
+          Patient Count :  89
+          Nodule Count :  31539
+        In mini-batch  0
+                   Loss :  0.144215479493
+                   TP :  28  FP :  0  FN :  2  TN :  34
+                   Accuracy :  62 / 64 -----> 96 %
+        In mini-batch  100
+                   Loss :  0.0472640693188
+                   TP :  28  FP :  1  FN :  0  TN :  35
+                   Accuracy :  63 / 64 -----> 98 %
+        In mini-batch  200
+                   Loss :  0.0821848511696
+                   TP :  38  FP :  1  FN :  1  TN :  24
+                   Accuracy :  62 / 64 -----> 96 %
+        In mini-batch  300
+                   Loss :  0.00293666496873
+                   TP :  30  FP :  0  FN :  0  TN :  34
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  400
+                   Loss :  0.00330410711467
+                   TP :  33  FP :  0  FN :  0  TN :  31
+                   Accuracy :  64 / 64 -----> 100 %
+31171 / 31539 -----> 98 %
+      Train for  5  fold
+          Patient Count :  89
+          Nodule Count :  33171
+        In mini-batch  0
+                   Loss :  0.180189803243
+                   TP :  41  FP :  0  FN :  1  TN :  22
+                   Accuracy :  63 / 64 -----> 98 %
+        In mini-batch  100
+                   Loss :  0.100771255791
+                   TP :  30  FP :  0  FN :  2  TN :  32
+                   Accuracy :  62 / 64 -----> 96 %
+        In mini-batch  200
+                   Loss :  0.0623534619808
+                   TP :  37  FP :  1  FN :  0  TN :  26
+                   Accuracy :  63 / 64 -----> 98 %
+        In mini-batch  300
+                   Loss :  0.00523572228849
+                   TP :  30  FP :  0  FN :  0  TN :  34
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  400
+                   Loss :  0.0405142828822
+                   TP :  42  FP :  0  FN :  1  TN :  21
+                   Accuracy :  63 / 64 -----> 98 %
+        In mini-batch  500
+                   Loss :  0.00543566141278
+                   TP :  34  FP :  0  FN :  0  TN :  30
+                   Accuracy :  64 / 64 -----> 100 %
+32854 / 33171 -----> 99 %
+      Train for  6  fold
+          Patient Count :  89
+          Nodule Count :  25400
+        In mini-batch  0
+                   Loss :  0.0482599511743
+                   TP :  33  FP :  0  FN :  2  TN :  29
+                   Accuracy :  62 / 64 -----> 96 %
+        In mini-batch  100
+                   Loss :  0.158324182034
+                   TP :  32  FP :  2  FN :  0  TN :  30
+                   Accuracy :  62 / 64 -----> 96 %
+        In mini-batch  200
+                   Loss :  0.0112793669105
+                   TP :  39  FP :  0  FN :  0  TN :  25
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  300
+                   Loss :  0.00244397111237
+                   TP :  31  FP :  0  FN :  0  TN :  33
+                   Accuracy :  64 / 64 -----> 100 %
+25081 / 25400 -----> 98 %
+      Train for  7  fold
+          Patient Count :  89
+          Nodule Count :  30731
+        In mini-batch  0
+                   Loss :  0.0999049991369
+                   TP :  29  FP :  0  FN :  2  TN :  33
+                   Accuracy :  62 / 64 -----> 96 %
+        In mini-batch  100
+                   Loss :  0.0774855315685
+                   TP :  27  FP :  1  FN :  1  TN :  35
+                   Accuracy :  62 / 64 -----> 96 %
+        In mini-batch  200
+                   Loss :  0.00728813372552
+                   TP :  29  FP :  0  FN :  0  TN :  35
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  300
+                   Loss :  0.0386912338436
+                   TP :  42  FP :  0  FN :  1  TN :  21
+                   Accuracy :  63 / 64 -----> 98 %
+        In mini-batch  400
+                   Loss :  0.00167763791978
+                   TP :  27  FP :  0  FN :  0  TN :  37
+                   Accuracy :  64 / 64 -----> 100 %
+30441 / 30731 -----> 99 %
+      Train for  8  fold
+          Patient Count :  89
+          Nodule Count :  24000
+        In mini-batch  0
+                   Loss :  0.123253256083
+                   TP :  22  FP :  0  FN :  2  TN :  40
+                   Accuracy :  62 / 64 -----> 96 %
+        In mini-batch  100
+                   Loss :  0.00669260323048
+                   TP :  35  FP :  0  FN :  0  TN :  29
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  200
+                   Loss :  0.00300042331219
+                   TP :  32  FP :  0  FN :  0  TN :  32
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  300
+                   Loss :  0.0191000699997
+                   TP :  35  FP :  0  FN :  0  TN :  29
+                   Accuracy :  64 / 64 -----> 100 %
+23772 / 24000 -----> 99 %
+      Train for  9  fold
+          Patient Count :  88
+          Nodule Count :  37798
+        In mini-batch  0
+                   Loss :  0.108167253435
+                   TP :  28  FP :  0  FN :  2  TN :  34
+                   Accuracy :  62 / 64 -----> 96 %
+        In mini-batch  100
+                   Loss :  0.0242715850472
+                   TP :  34  FP :  0  FN :  0  TN :  30
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  200
+                   Loss :  0.0102481618524
+                   TP :  26  FP :  0  FN :  0  TN :  38
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  300
+                   Loss :  0.00890453718603
+                   TP :  36  FP :  0  FN :  0  TN :  28
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  400
+                   Loss :  0.017560467124
+                   TP :  35  FP :  0  FN :  0  TN :  29
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  500
+                   Loss :  0.00133658200502
+                   TP :  39  FP :  0  FN :  0  TN :  25
+                   Accuracy :  64 / 64 -----> 100 %
+37436 / 37798 -----> 99 %
+      Train for  10  fold
+          Patient Count :  88
+          Nodule Count :  28333
+        In mini-batch  0
+                   Loss :  0.0117233544588
+                   TP :  33  FP :  0  FN :  0  TN :  31
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  100
+                   Loss :  0.00159338489175
+                   TP :  28  FP :  0  FN :  0  TN :  36
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  200
+                   Loss :  0.0229618940502
+                   TP :  30  FP :  1  FN :  0  TN :  33
+                   Accuracy :  63 / 64 -----> 98 %
+        In mini-batch  300
+                   Loss :  0.00825066585094
+                   TP :  38  FP :  0  FN :  0  TN :  26
+                   Accuracy :  64 / 64 -----> 100 %
+        In mini-batch  400
+                   Loss :  0.0119439838454
+                   TP :  31  FP :  0  FN :  0  TN :  33
+                   Accuracy :  64 / 64 -----> 100 %
+28096 / 28333 -----> 99 %
+Traceback (most recent call last):
+  File "main.py", line 31, in <module>
+    Train.train(Model_Type, test_idx, Batch_Size, Img_Size, isContinue=True)
+  File "/home/hwejin/LUNA/Code/train.py", line 104, in train
+    os.mkdir(save_model_path)
+OSError: [Errno 17] File exists: '../Model/Resnet3D'
