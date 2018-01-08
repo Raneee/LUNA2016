@@ -31,3 +31,9 @@ Model
 nohup - background 실행
 
 $ nohup python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10 > blah.txt
+
+
+https://github.com/kenshohara/video-classification-3d-cnn-pytorch
+https://github.com/kenshohara/3D-ResNets-PyTorch
+
+
