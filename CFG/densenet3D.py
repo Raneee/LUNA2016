@@ -201,5 +201,5 @@ def generate_3DDensenet(model_name, model_depth, img_size, num_class, isPretrain
         model_dict.update(new_pretrain_dict)
         model.load_state_dict(model_dict)
         model.classifier = nn.Linear(model.classifier.in_features, num_class)
-        
+        print 'Pretrained Weight Loaded'
     return model, model.parameters()
