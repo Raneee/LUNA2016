@@ -44,11 +44,11 @@ def model_setter(idx, img_size=64, batch_size=None, isTest=False):
     elif idx == 3:
         model_name = 'Resnet3D'
         batch_size = default_batch
-        model, _ = r3.generate_3DResnet('resnet', 18, img_size, 2, isPretrained=False)
+        model, _ = r3.generate_3DResnet('resnet', 18, img_size, 2, isPretrained=True)
     elif idx == 4:    
         model_name = 'Densenet3D'
         batch_size = 24
-        model, _ = d3.generate_3DDensenet('densenet', 121, img_size, 2, isPretrained=False)
+        model, _ = d3.generate_3DDensenet('densenet', 121, img_size, 2, isPretrained=True)
     elif idx == 5:
         model_name = 'Densenet2D'
         batch_size = default_batch
