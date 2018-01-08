@@ -264,7 +264,7 @@ def generate_3DResnet(model_name, model_depth, img_size, num_class, isPretrained
         model_path = None
         for file in files:
             if (model_name + '-' + str(model_depth)) in file:
-                model_path = os.path.join('./Model/PretrainedWeight', file)
+                model_path = os.path.join('../Model/PretrainedWeight', file)
         model_dict = model.state_dict()
         pretrain = torch.load(model_path)
 
