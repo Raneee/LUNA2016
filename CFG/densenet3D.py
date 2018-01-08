@@ -4,6 +4,7 @@ import torch.nn.functional as F
 from collections import OrderedDict
 import os
 import math
+from collections import OrderedDict
 
 __all__ = ['DenseNet', 'densenet121', 'densenet169', 'densenet201', 'densenet264']
 
