@@ -20,8 +20,12 @@ import Tools_Summary as SUMMARY_T
 import Tools_Model as MODEL_T
 from noduleCADEvaluationLUNA16 import *
 
-def test(model_idx, num_epoch, batch_size, img_size):
-    out_name = MODEL_T.model_names[model_idx] + '_' + str(num_epoch) + '_' + str(img_size)
+def test(model_idx, num_epoch, batch_size, img_size, pretrained, time):
+    if pretrained:
+        out_name = MODEL_T.model_names[model_idx] + '_withPT_' + str(num_epoch) + '_' + str(img_size)
+    else:
+        out_name = MODEL_T.model_names[model_idx] + '_withoutPT_' + str(num_epoch) + '_' + str(img_size)
+
     out_file_path = '../Output/' + out_name + '.csv'
     if os.path.exists(out_file_path):
         os.remove(out_file_path)
@@ -32,10 +36,9 @@ def test(model_idx, num_epoch, batch_size, img_size):
     for test_index in range(10):
         print 'Test for ', test_index + 1, ' fold'
 
-
-        model, model_name, batch_size = MODEL_T.model_setter(model_idx, img_size, batch_size)
+        model, model_name, batch_size = MODEL_T.model_setter(model_idx, img_size=img_size, batch_size=batch_size, pretrained=pretrained, isTest=True)
         #model_path, model_epoch, previous_batch_size, previous_learning_rate = MODEL_T.modelLoader(model_name, test_index, num_epoch)
-        model_path, model_epoch = MODEL_T.modelLoader(model_name, test_index, img_size)
+        model_path, model_epoch = MODEL_T.modelLoader(model_name, test_index, img_size, pretrained=pretrained, times=time)
 
 
 
@@ -84,7 +87,7 @@ def test(model_idx, num_epoch, batch_size, img_size):
     annotations_filename = 'Scripts/annotations/annotations.csv'
     annotations_excluded_filename = 'Scripts/annotations/annotations_excluded.csv'
     seriesuids_filename = 'Scripts/annotations/seriesuids.csv'
-    results_filename = '../Output/' + out_name + '.csv'
+    results_filename = out_file_path
     outputDir = os.path.join('../Output/', out_name)
     os.makedirs(outputDir)
 
