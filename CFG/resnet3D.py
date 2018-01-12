@@ -268,7 +268,7 @@ def generate_3DResnet(model_name, model_depth, img_size, num_class, isPretrained
                 model_path = os.path.join('../Model/PretrainedWeight', file)
         model_dict = model.state_dict()
         pretrain = torch.load(model_path)
-
+        print 'Pretrained Weight Loaded'
         new_pretrain_dict = OrderedDict()
         for k, v in pretrain['state_dict'].items():
             name = k[7:]
@@ -277,6 +277,6 @@ def generate_3DResnet(model_name, model_depth, img_size, num_class, isPretrained
         model_dict.update(new_pretrain_dict)
         model.load_state_dict(model_dict)
         model.fc = nn.Linear(model.fc.in_features, num_class)
-        print 'Pretrained Weight Loaded'
+        
         
     return model, model.parameters()
