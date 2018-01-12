@@ -13,6 +13,15 @@ parser.add_argument("--Undersampling", default=False, help="Under Sampling???")
 parser.add_argument("--Loss", type=str, help="Loss Type???")
 args = parser.parse_args()
 
+def str2bool(v):
+    bool_list = ['True']
+    if v in bool_list:
+        return True
+    else:
+        return False
+
+
+
 
 Train_or_Test = args.TT
 Model_Type = args.Model
@@ -28,8 +37,8 @@ print 'Model Type : ', Model_Type
 print 'Batch Size : ', Batch_Size
 print 'Epoch Count : ', Epoch_Cnt
 print 'Image Size : ', Img_Size
-print 'Pretrained Weight : ', Pretrained_Weight
-print 'Under Sampling : ', Under_Sampling
+print 'Pretrained Weight : ', str2bool(Pretrained_Weight)
+print 'Under Sampling : ', str2bool(Under_Sampling)
 print 'Loss Type : ', Loss_Type
 print 
 
