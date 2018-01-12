@@ -90,7 +90,7 @@ def makePreLists(index, isBalanced=False, isTest=False, isUndersampling=False):
 
 
     if isUndersampling:
-        balanced_ratio = 30
+        balanced_ratio = 50
         patient_list = patientDict.keys()
         shuffle(patient_list)
         t_p_cnt = 0
@@ -124,7 +124,7 @@ def makePreLists(index, isBalanced=False, isTest=False, isUndersampling=False):
 
 
     	shuffle(balancedCandidate)
-        print 'UNDER SAMPLING --> 80% of Positive, *30 of Negative'
+        print 'UNDER SAMPLING --> 80% of Positive, *50 of Negative'
     
     	return patientDict, balancedCandidate
 
