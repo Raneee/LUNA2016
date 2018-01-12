@@ -72,7 +72,7 @@ def train(model_idx, test_index, batch_size, img_size, pretrained, loss_type, ti
         if train_index != test_index:
             train_correct_cnt = 0
             print '      Train for ', train_index + 1, ' fold'
-            patientDict, candidateList = IO_T.makePreLists(train_index, isBalanced=True)
+            patientDict, candidateList = IO_T.makePreLists(train_index, isBalanced=True, isUndersampling=under_sampling)
 
             print '          Patient Count : ', len(patientDict)
             print '          Nodule Count : ', len(candidateList)
