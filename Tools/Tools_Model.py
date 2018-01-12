@@ -71,7 +71,7 @@ def model_setter(idx, img_size=64, batch_size=None, isTest=False, pretrained=Fal
 
 def modelLoader(model_name, test_index, img_size, times=0, epoch=-1, pretrained=False):
     if not os.path.exists(os.path.join('../Model', str(times))):
-        os.mkdir(os.path.join('../Model', str(times))
+        os.mkdir(os.path.join('../Model', str(times)))
 
     if pretrained:
         model_path = os.path.join('../Model', str(times), model_name + '_withPT')
