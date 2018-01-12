@@ -114,9 +114,9 @@ def train(model_idx, test_index, batch_size, img_size, pretrained, loss_type, ti
             print train_correct_cnt, '/', len(candidateList), '----->', (train_correct_cnt * 100 / len(candidateList)) , '%'
     save_model_name = model_name + '____' + str(test_index)+ '__'+ str(epoch) + '__' + str(img_size) + '.pt'
     if pretrained:
-        save_model_path = os.path.join('../Model', model_name + '_withPT')
+        save_model_path = os.path.join('../Model', str(time), model_name + '_withPT')
     else:
-        save_model_path = os.path.join('../Model', model_name + '_withoutPT')
+        save_model_path = os.path.join('../Model', str(time), model_name + '_withoutPT')
     if not os.path.isdir(save_model_path):
         os.mkdir(save_model_path)
     torch.save(model.state_dict(), os.path.join(save_model_path, save_model_name))
