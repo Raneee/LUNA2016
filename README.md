@@ -4,7 +4,7 @@
 
 Train
 
-$ python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10 --Pretrained True
+$ python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10 --Pretrained True --Undersampling True
     
     --TT : 'Train' / 'Test'
     --Model : 0 / 1 / 2 / ... /
@@ -12,11 +12,13 @@ $ python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10 --Pretrained Tru
     --ImgSize : 32 / 48 / 64
     --Epoch : None ~ 
     --Pretrained : True / False
+    --Undersampling : True / False
+    --Loss : None / 'FL' 
 
 
 Test
     
-$ python main.py --TT 'Test' --Model 1 --Epoch 0 --ImgSize 64   --Pretrained True
+$ python main.py --TT 'Test' --Model 1 --Epoch 0 --ImgSize 64   --Pretrained True 
     
 Model
 
