@@ -184,6 +184,7 @@ def generate_3DDensenet(model_name, model_depth, img_size, num_class, isPretrain
     
     
     print isPretrained, '!@!@!@!@'
+    print type(isPretrained)
     if isPretrained:
         files = os.listdir('../Model/PretrainedWeight')
         model_path = None
