@@ -90,7 +90,6 @@ def makePreLists(index, isBalanced=False, isTest=False, isUndersampling=False):
 
 
     if isUndersampling:
-        print p_cnt, n_cnt
         balanced_ratio = 30
         patient_list = patientDict.keys()
         shuffle(patient_list)
@@ -111,7 +110,6 @@ def makePreLists(index, isBalanced=False, isTest=False, isUndersampling=False):
                             balancedCandidate.append(infoDict)
                         c_p_cnt += 1
                         t_p_cnt += 1
-                print t_p_cnt
         
             for Candidate in patientDict[patient]['List']:
                 if c_p_cnt * balanced_ratio > c_n_cnt:

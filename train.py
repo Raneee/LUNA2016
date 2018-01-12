@@ -46,8 +46,8 @@ def train(model_idx, test_index, batch_size, img_size, pretrained, loss_type, ti
         print 'Start Epoch : 0'	
         epoch = 0        
 
-    
-    learning_rate = 0.001 / float(pow(2, epoch))
+    epoch_lr = epoch % 3
+    learning_rate = 0.001 / float(pow(2, epoch_lr))
     #learning_rate = 0.001
     print 'Learning Rate :', learning_rate
 
