@@ -19,7 +19,7 @@ Model_Type = args.Model
 Batch_Size = args.Batch
 Epoch_Cnt = args.Epoch
 Img_Size = args.ImgSize
-Pretrained = args.Pretrained
+Pretrained_Weight = args.Pretrained
 Under_Sampling = args.Undersampling
 Loss_Type = args.Loss
 
@@ -28,7 +28,7 @@ print 'Model Type : ', Model_Type
 print 'Batch Size : ', Batch_Size
 print 'Epoch Count : ', Epoch_Cnt
 print 'Image Size : ', Img_Size
-print 'Pretrained Weight : ', Pretrained
+print 'Pretrained Weight : ', Pretrained_Weight
 print 'Under Sampling : ', Under_Sampling
 print 'Loss Type : ', Loss_Type
 print 
@@ -38,7 +38,7 @@ if Train_or_Test == 'Train':
     for time in range(5):
         for epoch in range(5):
             for test_idx in range(10):
-                Train.train(Model_Type, test_idx, Batch_Size, Img_Size, Pretrained, Loss_Type, time, under_sampling=Under_Sampling, isContinue=True)
+                Train.train(Model_Type, test_idx, Batch_Size, Img_Size, Pretrained_Weight, Loss_Type, time, under_sampling=Under_Sampling, isContinue=True)
 else:
     for time in range(1):
-        Test.test(Model_Type, Epoch_Cnt, Batch_Size, Img_Size, Pretrained, time)
+        Test.test(Model_Type, Epoch_Cnt, Batch_Size, Img_Size, Pretrained_Weight, time)
