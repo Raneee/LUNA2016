@@ -21,7 +21,7 @@ from collections import OrderedDict
 model_names = ['ResNet', '3DNet', '2D3DNet', 'Resnet3D', 'Densenet3D', 'Densenet2D']
 
 def model_setter(idx, img_size=64, batch_size=None, isTest=False, pretrained=False):
-
+    print pretrained, '!@!@!@@'
     if batch_size != None:
         default_batch = batch_size
     else:

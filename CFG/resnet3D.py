@@ -259,7 +259,7 @@ def generate_3DResnet(model_name, model_depth, img_size, num_class, isPretrained
     elif model_depth == 200:
         model = resnet200(num_classes=num_class, shortcut_type='B',
                                          sample_size=img_size, without_fc=without_fc)
-
+    print isPretrained, isTest
     if isPretrained and not isTest:
         files = os.listdir('../Model/PretrainedWeight')
         model_path = None
