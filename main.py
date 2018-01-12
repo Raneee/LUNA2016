@@ -28,8 +28,8 @@ Model_Type = args.Model
 Batch_Size = args.Batch
 Epoch_Cnt = args.Epoch
 Img_Size = args.ImgSize
-Pretrained_Weight = args.Pretrained
-Under_Sampling = args.Undersampling
+Pretrained_Weight = str2bool(args.Pretrained)
+Under_Sampling = str2bool(args.Undersampling)
 Loss_Type = args.Loss
 
 print 'Train or Test : ', Train_or_Test
@@ -37,8 +37,8 @@ print 'Model Type : ', Model_Type
 print 'Batch Size : ', Batch_Size
 print 'Epoch Count : ', Epoch_Cnt
 print 'Image Size : ', Img_Size
-print 'Pretrained Weight : ', str2bool(Pretrained_Weight)
-print 'Under Sampling : ', str2bool(Under_Sampling)
+print 'Pretrained Weight : ', Pretrained_Weight
+print 'Under Sampling : ', Under_Sampling
 print 'Loss Type : ', Loss_Type
 print 
 
