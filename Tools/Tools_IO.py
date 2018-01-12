@@ -94,12 +94,13 @@ def makePreLists(index, isBalanced=False, isTest=False, isUndersampling=False):
         balanced_ratio = 30
         patient_list = patientDict.keys()
         shuffle(patient_list)
+        t_p_cnt = 0
         for patient in patient_list:
             c_p_cnt = 0
             c_n_cnt = 0
             shuffle(patientDict[patient]['List'])
             for Candidate in patientDict[patient]['List']:
-                if c_p_cnt < int(p_cnt * 0.8):
+                if t_p_cnt < int(p_cnt * 0.8):
                     if Candidate['Label'] == '1':
 
                         for i in range(balanced_ratio):
@@ -109,9 +110,11 @@ def makePreLists(index, isBalanced=False, isTest=False, isUndersampling=False):
                             infoDict['Label'] = copy.deepcopy(Candidate['Label'])
                             balancedCandidate.append(infoDict)
                         c_p_cnt += 1
-                print c_p_cnt
+                        t_p_cnt += 1
+                print t_p_cnt
+        
             for Candidate in patientDict[patient]['List']:
-                if c_p_cnt * balanced_ratio > c_n_cnt:
+                if c_p_cntgit * balanced_ratio > c_n_cnt:
                     if Candidate['Label'] != '1':
                         infoDict = {}
                         infoDict['XYZ'] = copy.deepcopy(Candidate['XYZ'])
