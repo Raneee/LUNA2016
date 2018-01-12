@@ -114,7 +114,7 @@ def makePreLists(index, isBalanced=False, isTest=False, isUndersampling=False):
                 print t_p_cnt
         
             for Candidate in patientDict[patient]['List']:
-                if c_p_cnt * balanced_ratio > c_n_cnt:
+                if c_p_cntgit * balanced_ratio > c_n_cnt:
                     if Candidate['Label'] != '1':
                         infoDict = {}
                         infoDict['XYZ'] = copy.deepcopy(Candidate['XYZ'])
