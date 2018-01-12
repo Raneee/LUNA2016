@@ -48,7 +48,7 @@ def model_setter(idx, img_size=64, batch_size=None, isTest=False, pretrained=Fal
         model, _ = r3.generate_3DResnet('resnet', 18, img_size, 2, isPretrained=pretrained, isTest=isTest)
     elif idx == 4:    
         model_name = 'Densenet3D'
-        batch_size = 32
+        batch_size = default_batch
         model, _ = d3.generate_3DDensenet('densenet', 121, img_size, 2, isPretrained=pretrained)
     elif idx == 5:
         model_name = 'Densenet2D'
