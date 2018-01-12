@@ -26,7 +26,7 @@ def classFromOutput(output):
 
 
 
-def makePreLists(index, isBalanced=False, isTest=False):
+def makePreLists(index, isBalanced=False, isTest=False, isUndersampling=False):
 
 
     candPath = '../Data/CSVFILES/candidates_V2.csv'
@@ -86,6 +86,50 @@ def makePreLists(index, isBalanced=False, isTest=False):
                 n_cnt += 1
     ratio = n_cnt / p_cnt
     
+
+
+
+    if isUndersampling:
+        
+
+        balanced_ratio = 30
+        patient_list = patientDict.keys()
+        print patient_list[0], '!@!@'
+        shuffle(patient_list)
+        print patient_list[0], '!@!@'
+        for patient in patient_list:
+            c_p_cnt = 0
+            c_n_cnt = 0
+            shuffle(patientDict[patient]['List'])
+            for Candidate in patientDict[patient]['List']:
+                if len(balancedCandidate) < int(p_cnt * 0.8):
+                    if Candidate['Label'] == '1':
+
+                        for i in range(balanced_ratio):
+                            infoDict = {}
+                            infoDict['XYZ'] = copy.deepcopy(Candidate['XYZ'])
+                            infoDict['P_ID'] = patient
+                            infoDict['Label'] = copy.deepcopy(Candidate['Label'])
+                            balancedCandidate.append(infoDict)
+                        c_p_cnt += 1
+            for Candidate in patientDict[patient]['List']:
+                if c_p_cnt * balanced_ratio > c_n_cnt:
+                    if Candidate['Label'] != '1':
+                        infoDict = {}
+                        infoDict['XYZ'] = copy.deepcopy(Candidate['XYZ'])
+                        infoDict['P_ID'] = patient
+                        infoDict['Label'] = copy.deepcopy(Candidate['Label'])
+                        balancedCandidate.append(infoDict)
+                        c_n_cnt += 1
+
+
+
+    	shuffle(balancedCandidate)
+        print 'UNDER SAMPLING --> 80% of Positive, *30 of Negative'
+    
+    	return patientDict, balancedCandidate
+
+
     if not isBalanced:     
         for patient in patientDict:
             for Candidate in patientDict[patient]['List']:
@@ -109,6 +153,7 @@ def makePreLists(index, isBalanced=False, isTest=False):
                         infoDict['P_ID'] = patient
                         infoDict['Label'] = copy.deepcopy(Candidate['Label'])
                         balancedCandidate.append(infoDict)
+        print 'USING ALL DATA ----> No BALANCING'
     else:
         balanced_ratio = 100
         for patient in patientDict:
@@ -136,7 +181,7 @@ def makePreLists(index, isBalanced=False, isTest=False):
                         c_n_cnt += 1
 
 
-
+        print 'USING BALANCED DATA -----> * 100'
     shuffle(balancedCandidate)
     
     return patientDict, balancedCandidate

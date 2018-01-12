@@ -7,7 +7,10 @@ parser.add_argument("--TT", type=str, help="Train???? or Test????")
 parser.add_argument("--Model", type=int, help="What Kind of Model????")
 parser.add_argument("--Batch", type=int, help="Batch Size????")
 parser.add_argument("--Epoch", type=int, help="Epoch Count????")
-parser.add_argument("--ImgSize", type=int, help="Image Size???")
+parser.add_argument("--ImgSize", type=int, help="Image Size????")
+parser.add_argument("--Pretrained", type=bool, help="Pretrained Weight???")
+parser.add_argument("--Undersampling", type=bool, help="Under Sampling???")
+parser.add_argument("--Loss", type=str, help="Loss Type???")
 args = parser.parse_args()
 
 
@@ -16,18 +19,25 @@ Model_Type = args.Model
 Batch_Size = args.Batch
 Epoch_Cnt = args.Epoch
 Img_Size = args.ImgSize
+Pretrained = args.Pretrained
+Under_Sampling = args.Undersampling
+Loss_Type = args.Loss
 
 print 'Train or Test : ', Train_or_Test
 print 'Model Type : ', Model_Type
 print 'Batch Size : ', Batch_Size
 print 'Epoch Count : ', Epoch_Cnt
 print 'Image Size : ', Img_Size
+print 'Pretrained Weight : ', Pretrained
+print 'Under Sampling : ', Under_Sampling
+print 'Loss Type : ', Loss_Type
 print 
 
 
 if Train_or_Test == 'Train':
-    for epoch in range(10):
-        for test_idx in range(10):
-            Train.train(Model_Type, test_idx, Batch_Size, Img_Size, isContinue=True)
+    for time in range(5):
+        for epoch in range(10):
+            for test_idx in range(10):
+                Train.train(Model_Type, test_idx, Batch_Size, Img_Size, Pretrained, Loss_Type, time, under_sampling=Under_Sampling, isContinue=True)
 else:
-    Test.test(Model_Type, Epoch_Cnt, Batch_Size, Img_Size)
+    Test.test(Model_Type, Epoch_Cnt, Batch_Size, Img_Size, Pretrained, time)

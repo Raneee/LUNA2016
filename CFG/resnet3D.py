@@ -236,7 +236,7 @@ def resnet200(**kwargs):
 
 
 
-def generate_3DResnet(model_name, model_depth, img_size, num_class, isPretrained=False, without_fc=False):
+def generate_3DResnet(model_name, model_depth, img_size, num_class, isPretrained=False, isTest=False, without_fc=False):
 
     if model_depth == 10:
         model = resnet10(num_classes=num_class, shortcut_type='B',
@@ -260,7 +260,7 @@ def generate_3DResnet(model_name, model_depth, img_size, num_class, isPretrained
         model = resnet200(num_classes=num_class, shortcut_type='B',
                                          sample_size=img_size, without_fc=without_fc)
 
-    if isPretrained:
+    if isPretrained and not isTest:
         files = os.listdir('../Model/PretrainedWeight')
         model_path = None
         for file in files:

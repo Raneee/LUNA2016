@@ -20,7 +20,8 @@ from collections import OrderedDict
 
 model_names = ['ResNet', '3DNet', '2D3DNet', 'Resnet3D', 'Densenet3D', 'Densenet2D']
 
-def model_setter(idx, img_size=64, batch_size=None, isTest=False):
+def model_setter(idx, img_size=64, batch_size=None, isTest=False, pretrained=False):
+
     if batch_size != None:
         default_batch = batch_size
     else:
@@ -44,11 +45,11 @@ def model_setter(idx, img_size=64, batch_size=None, isTest=False):
     elif idx == 3:
         model_name = 'Resnet3D'
         batch_size = default_batch
-        model, _ = r3.generate_3DResnet('resnet', 18, img_size, 2, isPretrained=True)
+        model, _ = r3.generate_3DResnet('resnet', 18, img_size, 2, isPretrained=pretrained, isTest=isTest)
     elif idx == 4:    
         model_name = 'Densenet3D'
         batch_size = 24
-        model, _ = d3.generate_3DDensenet('densenet', 121, img_size, 2, isPretrained=True)
+        model, _ = d3.generate_3DDensenet('densenet', 121, img_size, 2, isPretrained=pretrained)
     elif idx == 5:
         model_name = 'Densenet2D'
         batch_size = default_batch
@@ -68,9 +69,14 @@ def model_setter(idx, img_size=64, batch_size=None, isTest=False):
 
 
 
-def modelLoader(model_name, test_index, img_size, epoch=-1):
+def modelLoader(model_name, test_index, img_size, times=0, epoch=-1, pretrained=False):
+    if not os.path.exists(os.path.join('../Model', str(times))):
+        os.mkdir(os.path.join('../Model', str(times))
 
-    model_path = os.path.join('../Model', model_name)
+    if pretrained:
+        model_path = os.path.join('../Model', str(times), model_name + '_withPT')
+    else:
+        model_path = os.path.join('../Model', str(times), model_name + '_withoutPT')
     if not os.path.exists(model_path):
         os.mkdir(model_path)
     files = os.listdir(model_path)
@@ -81,7 +87,8 @@ def modelLoader(model_name, test_index, img_size, epoch=-1):
                 model_list.append(file)
 
     model_list.sort()
-    
+    print model_path
+    print model_list
     if len(model_list) < 1:
         return None, -1
     else:
@@ -99,16 +106,6 @@ def modelLoader(model_name, test_index, img_size, epoch=-1):
             model_epoch = int(model_list[-1].split('__')[-2])  
 
 
-
-        #f = open(model_out.replace('.pt', '.txt'), 'r')
-        #line = f.readline()
-        
-        #batch_size = int(line.split(',')[0])
-        #learning_rate = float(line.split(',')[1])
-        #f.close()
-
-    
-        #, batch_size, learning_rate
         return model_out, model_epoch
 
 

@@ -17,14 +17,12 @@ import Tools_Torch as TORCH_T
 import Tools_IO as IO_T
 import Tools_Summary as SUMMARY_T
 import Tools_Model as MODEL_T
+import Tools_Loss as LOSS_T
 
+def train(model_idx, test_index, batch_size, img_size, pretrained, loss_type, time, under_sampling=False, isContinue=False):
 
-
-def train(model_idx, test_index, batch_size, img_size, isContinue=False):
-
-    
-    model, model_name, batch_size = MODEL_T.model_setter(model_idx, img_size, batch_size)
-    model_path, model_epoch = MODEL_T.modelLoader(model_name, test_index, img_size)
+    model, model_name, batch_size = MODEL_T.model_setter(model_idx, img_size=img_size, batch_size=batch_size, pretrained=pretrained)
+    model_path, model_epoch = MODEL_T.modelLoader(model_name, test_index, img_size, pretrained=pretrained, times=time)
     #model_path, model_epoch, previous_batch_size, previous_learning_rate = MODEL_T.modelLoader(model_name, test_index, img_size)
 
  
@@ -41,7 +39,6 @@ def train(model_idx, test_index, batch_size, img_size, isContinue=False):
         model.load_state_dict(torch.load(model_path))
         print 'Previous Model Loaded!     -> ', model_path
         print 'Start Epoch : ' , model_epoch 
-        #learning_rate = previous_learning_rate
 
         epoch = model_epoch + 1
     else:
@@ -51,8 +48,22 @@ def train(model_idx, test_index, batch_size, img_size, isContinue=False):
 
     
     learning_rate = 0.001 / float(pow(2, epoch))
+    #learning_rate = 0.001
     print 'Learning Rate :', learning_rate
-    criterion = nn.CrossEntropyLoss()
+
+
+    if loss_type == 'FL':
+        criterion = LOSS_T.FocalLoss()
+        print 'FOCAL LOSS'
+    else:
+        criterion = nn.CrossEntropyLoss()
+        print 'CROSSENTROPY LOSS'
+
+
+
+
+
+
     optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)  
 
     for train_index in range(10):
@@ -65,6 +76,7 @@ def train(model_idx, test_index, batch_size, img_size, isContinue=False):
 
             print '          Patient Count : ', len(patientDict)
             print '          Nodule Count : ', len(candidateList)
+
     
             for batch_index in range((len(candidateList) / batch_size)):
                 batch_img, batch_label, batch_P_ID, batch_XYZ = DL.makeBatch(batch_index, batch_size, candidateList, patientDict)
@@ -75,13 +87,13 @@ def train(model_idx, test_index, batch_size, img_size, isContinue=False):
                 label = TORCH_T.to_var(torch.LongTensor(batch_label).view(-1))
                 
                 optimizer.zero_grad()
-                outputs = model(TORCH_T.imageOnTorch(batch_img, model_idx, img_size=img_size))
-
-
+                outputs = model(TORCH_T.imageOnTorch(batch_img, model_idx, img_size=img_size))  
                 loss = criterion(outputs, label)
 
                 loss.backward()
                 optimizer.step()
+
+
                 guess, guess_i = IO_T.classFromOutput(outputs)
                     
 
@@ -94,23 +106,20 @@ def train(model_idx, test_index, batch_size, img_size, isContinue=False):
                     TP, FP, FN, TN = SUMMARY_T.result_Summary(guess_i, label)
                     correct = SUMMARY_T.result_correct(guess_i, label)
                 train_correct_cnt += correct
+                
                     
 
 
 
             print train_correct_cnt, '/', len(candidateList), '----->', (train_correct_cnt * 100 / len(candidateList)) , '%'
     save_model_name = model_name + '____' + str(test_index)+ '__'+ str(epoch) + '__' + str(img_size) + '.pt'
-    save_model_path = os.path.join('../Model', model_name)
+    if pretrained:
+        save_model_path = os.path.join('../Model', model_name + '_withPT')
+    else:
+        save_model_path = os.path.join('../Model', model_name + '_withoutPT')
     if not os.path.isdir(save_model_path):
         os.mkdir(save_model_path)
     torch.save(model.state_dict(), os.path.join(save_model_path, save_model_name))
 
     print 'Model Stored ----------->   ' , save_model_name
-    
-    #save_rate = 0.001
-    #for param_group in optimizer.param_groups:
-    #    save_rate = param_group['lr']            
-    #f = open('../Model/' + model_name + '____' + str(test_index)+ '__'+ str(epoch) + '__' + str(img_size) + '.txt', 'w')
-    #f.write(str(batch_size) +',' + str(save_rate))
-    #f.close()  
 
