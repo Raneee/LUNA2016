@@ -93,7 +93,11 @@ def makePreLists(index, isBalanced=False, isTest=False, isUndersampling=False):
         
 
         balanced_ratio = 30
-        for patient in patientDict:
+        patient_list = patientDict.keys()
+        print patient_list[0], '!@!@'
+        shuffle(patient_list)
+        print patient_list[0], '!@!@'
+        for patient in patient_list:
             c_p_cnt = 0
             c_n_cnt = 0
             shuffle(patientDict[patient]['List'])
