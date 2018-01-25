@@ -24,10 +24,10 @@ def test(model_idx, num_epoch, batch_size, img_size, pretrained, time):
     
     if pretrained:
         out_name = MODEL_T.model_names[model_idx] + '_withPT_' + str(num_epoch) + '_' + str(img_size)
-        out_file_dir = os.path.join('../Output', str(time), model_name + '_withPT')
+        out_file_dir = os.path.join('../Output', str(time))
     else:
         out_name = MODEL_T.model_names[model_idx] + '_withoutPT_' + str(num_epoch) + '_' + str(img_size)
-        out_file_dir = os.path.join('../Output', str(time), model_name + '_withoutPT')
+        out_file_dir = os.path.join('../Output', str(time))
 
 
     if not os.path.isdir(out_file_dir):
