@@ -53,4 +53,5 @@ if Train_or_Test == 'Train':
 else:
     #Test.test(Model_Type, Epoch_Cnt, Batch_Size, Img_Size, Pretrained_Weight, Time)
     for time_ in range(1, 5):
-        Test.test(Model_Type, 4, Batch_Size, Img_Size, Pretrained_Weight, time_)
+        print time_
+        #Test.test(Model_Type, 4, Batch_Size, Img_Size, Pretrained_Weight, time_)
