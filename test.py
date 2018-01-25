@@ -21,12 +21,18 @@ import Tools_Model as MODEL_T
 from noduleCADEvaluationLUNA16 import *
 
 def test(model_idx, num_epoch, batch_size, img_size, pretrained, time):
+    
     if pretrained:
         out_name = MODEL_T.model_names[model_idx] + '_withPT_' + str(num_epoch) + '_' + str(img_size)
+        out_file_dir = os.path.join('../Output', str(time), model_name + '_withPT')
     else:
         out_name = MODEL_T.model_names[model_idx] + '_withoutPT_' + str(num_epoch) + '_' + str(img_size)
+        out_file_dir = os.path.join('../Output', str(time), model_name + '_withoutPT')
 
-    out_file_path = '../Output/' + out_name + '.csv'
+
+    if not os.path.isdir(out_file_dir):
+        os.mkdir(out_file_dir)
+    out_file_path = os.path.join(out_file_dir, out_name + '.csv')
     if os.path.exists(out_file_path):
         os.remove(out_file_path)
     f = file(out_file_path, 'a')
@@ -88,7 +94,7 @@ def test(model_idx, num_epoch, batch_size, img_size, pretrained, time):
     annotations_excluded_filename = 'Scripts/annotations/annotations_excluded.csv'
     seriesuids_filename = 'Scripts/annotations/seriesuids.csv'
     results_filename = out_file_path
-    outputDir = os.path.join('../Output/', out_name)
+    outputDir = os.path.join(out_file_dir, out_name)
     os.makedirs(outputDir)
 
 
