@@ -33,6 +33,7 @@ def test(model_idx, num_epoch, batch_size, img_size, pretrained, time):
     if not os.path.isdir(out_file_dir):
         os.mkdir(out_file_dir)
     out_file_path = os.path.join(out_file_dir, out_name + '.csv')
+    print 'Out File : ' , out_file_path
     if os.path.exists(out_file_path):
         os.remove(out_file_path)
     f = file(out_file_path, 'a')
