@@ -11,6 +11,7 @@ parser.add_argument("--ImgSize", type=int, help="Image Size????")
 parser.add_argument("--Pretrained", default=False, help="Pretrained Weight???")
 parser.add_argument("--Undersampling", default=False, help="Under Sampling???")
 parser.add_argument("--Loss", type=str, help="Loss Type???")
+parser.add_argument("--Time", type=int, help="Time???")
 args = parser.parse_args()
 
 def str2bool(v):
@@ -31,6 +32,7 @@ Img_Size = args.ImgSize
 Pretrained_Weight = str2bool(args.Pretrained)
 Under_Sampling = str2bool(args.Undersampling)
 Loss_Type = args.Loss
+Time = args.Time
 
 print 'Train or Test : ', Train_or_Test
 print 'Model Type : ', Model_Type
@@ -49,5 +51,4 @@ if Train_or_Test == 'Train':
             for test_idx in range(10):
                 Train.train(Model_Type, test_idx, Batch_Size, Img_Size, Pretrained_Weight, Loss_Type, time, under_sampling=Under_Sampling, isContinue=True)
 else:
-    for time in range(5):
-        Test.test(Model_Type, Epoch_Cnt, Batch_Size, Img_Size, Pretrained_Weight, time)
+    Test.test(Model_Type, Epoch_Cnt, Batch_Size, Img_Size, Pretrained_Weight, Time)
