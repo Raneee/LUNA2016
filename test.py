@@ -44,7 +44,7 @@ def test(model_idx, num_epoch, batch_size, img_size, pretrained, time):
 
         model, model_name, batch_size = MODEL_T.model_setter(model_idx, img_size=img_size, batch_size=batch_size, pretrained=pretrained, isTest=True)
         #model_path, model_epoch, previous_batch_size, previous_learning_rate = MODEL_T.modelLoader(model_name, test_index, num_epoch)
-        model_path, model_epoch = MODEL_T.modelLoader(model_name, test_index, img_size, pretrained=pretrained, times=time)
+        model_path, model_epoch = MODEL_T.modelLoader(model_name, test_index, img_size, pretrained=pretrained, times=time, epoch=num_epoch)
 
 
 
