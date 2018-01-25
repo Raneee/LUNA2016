@@ -51,6 +51,7 @@ def test(model_idx, num_epoch, batch_size, img_size, pretrained, time):
         model.load_state_dict(torch.load(model_path))
         model.eval()
         print '\nModel Name : ', model_name
+        print '\nModel Path : ', model_path
         print '\nBatch_size : ', batch_size  
 
 
