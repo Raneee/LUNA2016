@@ -4,12 +4,13 @@
 # Model
 
     0 -> Resnet2D           -> remove!!
-    1 -> 3DNet              -> remove!!       
+    1 -> 3DNet              -> remove!!
     2 -> 2D3DNet            -> remove!!
     3 -> Resnet3D
     4 -> Densenet3D
     5 -> Densenet2D         -> remove!!
     6 -> ResResnet ??       -> remove!!
+    
 
 
 
