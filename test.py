@@ -42,11 +42,13 @@ def test(model_idx, num_epoch, batch_size, img_size, pretrained):
     print 'Out File : ' , out_file_path, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     if os.path.exists(out_file_path):
         os.remove(out_file_path)
+        print '!!!!!!!!!@@#@#@#@#@#@#@#@#@#@#@#@#@#'
 
 
 
     f = file(out_file_path, 'a')
     f.write('seriesuid,coordX,coordY,coordZ,probability\n')
+    print '-----'
     f.close()
 
     for test_index in range(10):
@@ -96,7 +98,7 @@ def test(model_idx, num_epoch, batch_size, img_size, pretrained):
                 print '  ', batch_index, ' Batch Accuracy : ', correct * 100 / batch_size, '%'
         print 'Test set (', test_index + 1, ') Accuracy: ', correct_cnt ,'/', len(candidateList), '----->', (correct_cnt * 100 / len(candidateList)) , '%'
         print 
-    f.close()
+    #f.close()
 
 
 
