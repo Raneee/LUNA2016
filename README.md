@@ -1,8 +1,9 @@
 # Pulmonary Lung Nodule Recognition Using 3D Deep Convolutional Neural Network
 
-This is a code for Pulmonary Lung Nodule Recognition Using 3D Deep Convolutional Neural Network paper.
+This repository contains a code for Pulmonary Lung Nodule Recognition Using 3D Deep Convolutional Neural Network paper.
 
 3D CNNs with shortcut connection and with dense connection is implemented.
+
 
 
 ## Requirments
