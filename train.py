@@ -17,18 +17,10 @@ import Tools_Torch as TORCH_T
 import Tools_IO as IO_T
 import Tools_Summary as SUMMARY_T
 import Tools_Model as MODEL_T
-#import Tools_Loss as LOSS_T
 
-#def train(model_idx, test_index, batch_size, img_size, pretrained, under_sampling=False, isContinue=False):
-#def train(model_idx, test_index, batch_size, img_size, pretrained, isContinue=False):
 def train(model_idx, test_index, batch_size, img_size, isContinue=False):
-    #model, model_name, batch_size = MODEL_T.model_setter(model_idx, img_size=img_size, batch_size=batch_size, pretrained=pretrained)
     model, model_name, batch_size = MODEL_T.model_setter(model_idx, img_size=img_size, batch_size=batch_size)
-    
-
-    #model_path, model_epoch = MODEL_T.modelLoader(model_name, test_index, img_size, pretrained=pretrained)
     model_path, model_epoch = MODEL_T.modelLoader(model_name, test_index, img_size)
-    #model_path, model_epoch, previous_batch_size, previous_learning_rate = MODEL_T.modelLoader(model_name, test_index, img_size)
 
  
 
@@ -73,7 +65,6 @@ def train(model_idx, test_index, batch_size, img_size, isContinue=False):
         if train_index != test_index:
             train_correct_cnt = 0
             print '      Train for ', train_index + 1, ' fold'
-            #patientDict, candidateList = IO_T.makePreLists(train_index, isBalanced=True, isUndersampling=under_sampling)
 	    patientDict, candidateList = IO_T.makePreLists(train_index, isBalanced=True)
             print '          Patient Count : ', len(patientDict)
             print '          Nodule Count : ', len(candidateList)
@@ -114,12 +105,6 @@ def train(model_idx, test_index, batch_size, img_size, isContinue=False):
 
             print train_correct_cnt, '/', len(candidateList), '----->', (train_correct_cnt * 100 / len(candidateList)) , '%'
     save_model_name = model_name + '____' + str(test_index)+ '__'+ str(epoch) + '__' + str(img_size) + '.pt'
-    '''
-    if pretrained:
-        save_model_path = os.path.join('../Model', model_name + '_withPT')
-    else:
-        save_model_path = os.path.join('../Model', model_name + '_withoutPT')
-    '''
     save_model_path = os.path.join('../Model', model_name + '_withoutPT')
     if not os.path.isdir(save_model_path):
         os.mkdir(save_model_path)
