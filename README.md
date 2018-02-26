@@ -9,7 +9,7 @@
     3 -> Resnet3D
     4 -> Densenet3D
     5 -> Densenet2D         -> remove!!
-    6 -> ResResnet??        -> remove!!
+    6 -> ResResnet??        -> remove!!
     
 
 
