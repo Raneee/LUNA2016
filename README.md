@@ -1,5 +1,18 @@
 # LUNA2016
 
+
+# Model
+
+    0 -> Resnet2D
+    1 -> 3DNet
+    2 -> 2D3DNet
+    3 -> Resnet3D
+    4 -> Densenet3D
+    5 -> Densenet2D
+    6 -> ResResnet ??
+
+
+
 # 실행
 
 Train
@@ -19,16 +32,9 @@ $ python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10 --Pretrained Tru
 Test
     
 $ python main.py --TT 'Test' --Model 1 --Epoch 0 --ImgSize 64   --Pretrained True 
-    
-Model
+ 
+ 
 
-    0 -> Resnet2D
-    1 -> 3DNet
-    2 -> 2D3DNet
-    3 -> Resnet3D
-    4 -> Densenet3D
-    5 -> Densenet2D
-    6 -> ResResnet ??
     
     
 nohup - background 실행
