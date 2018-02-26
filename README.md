@@ -9,16 +9,13 @@
     3 -> Resnet3D
     4 -> Densenet3D
     5 -> Densenet2D         -> remove!!
-    6 -> ResResnet ??       -> remove!!
+    6 -> ResResnet??        -> remove!!
     
 
 
+# Train
 
-# 실행
-
-Train
-
-$ python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10 --Pretrained True --Undersampling True
+$ python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10
     
     --TT : 'Train' / 'Test'
     --Model : 0 / 1 / 2 / ... /
@@ -27,20 +24,11 @@ $ python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10 --Pretrained Tru
     --Epoch : None ~ 
     --Pretrained : True / False
     --Undersampling : True / False
-    --Loss : None / 'FL' 
 
 
-Test
+# Test
     
-$ python main.py --TT 'Test' --Model 1 --Epoch 0 --ImgSize 64   --Pretrained True 
- 
- 
-
-    
-    
-nohup - background 실행
-
-$ nohup python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10 > blah.txt
+$ python main.py --TT 'Test' --Model 1 --Epoch 0 --ImgSize 64
 
 
 https://github.com/kenshohara/video-classification-3d-cnn-pytorch
