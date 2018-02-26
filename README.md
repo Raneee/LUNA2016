@@ -1,7 +1,16 @@
-# LUNA2016
+# Pulmonary Lung Nodule Recognition Using 3D Deep Convolutional Neural Network
+
+This is a code for Pulmonary Lung Nodule Recognition Using 3D Deep Convolutional Neural Network paper.
+3D CNN with shortcut connection and with dense connection is implemented.
 
 
-# Model Index
+## Requirments
+
+PyTorch
+Python 2
+
+
+## Model Index
 
     0 -> Resnet2D           -> remove!!
     1 -> 3DNet              -> remove!!
@@ -11,9 +20,9 @@
     5 -> Densenet2D         -> remove!!
     6 -> ResResnet??        -> remove!!
     
+## Usage
 
-
-# Train
+### Train
 
 $ python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10
     
@@ -26,7 +35,7 @@ $ python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10
     --Undersampling : True / False
 
 
-# Test
+### Test
     
 $ python main.py --TT 'Test' --Model 1 --Epoch 0 --ImgSize 64
 
