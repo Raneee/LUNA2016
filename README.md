@@ -1,15 +1,18 @@
 # Pulmonary Lung Nodule Recognition Using 3D Deep Convolutional Neural Network
 
-This is a code for Pulmonary Lung Nodule Recognition Using 3D Deep Convolutional Neural Network paper.
+This repository contains a code for Pulmonary Lung Nodule Recognition Using 3D Deep Convolutional Neural Network paper.
 
 3D CNNs with shortcut connection and with dense connection is implemented.
 
 
+
 ## Requirments
 
-PyTorch
+[PyTorch](http://pytorch.org/)
 
-Python 2
+[Python 2](https://www.python.org/download/releases/2.7.2/)
+
+[LUNA Dataset](https://luna16.grand-challenge.org/) 
 
 
 ## Model Index
@@ -22,33 +25,37 @@ Python 2
     5 -> Densenet2D         -> remove!!
     6 -> ResResnet??        -> remove!!
     
+    0 -> Resnet3D
+    1 -> Densenet3D   
+
+     
+     
 ## Usage
 ### Args
     --TT : 'Train' / 'Test'                             -> Train or Test
     --Model : 0 / 1 / 2 / ... /                         -> Model Index
     --Batch : default or 64 / 128 / ... /               -> Batch Size
     --ImgSize : 32 / 48 / 64                            -> Input Image Size
-    --Epoch : None ~                                    -> How many epochs for train for Which epoch for test
-    --Pretrained : True / False                         -> Use Pretrained Model
-    --Undersampling : True / False                      -> Downsampling
+    --Epoch : 0 / 1 / ... / ~                           -> Train : How many epochs to run for train 
+                                                        -> Test  : Which epoch model for test
 
 
 
 ### Train
 
-$ python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10
+    $ python main.py --TT 'Train' --Model 1  --Epoch 10 --ImgSize 64
     
 
 
 ### Test
     
-$ python main.py --TT 'Test' --Model 1 --Epoch 0 --ImgSize 64
+    $ python main.py --TT 'Test' --Model 1 --Epoch 0 --ImgSize 64
 
 
+## Reference Code
 
+[PyTorch Tutorial](https://github.com/yunjey/pytorch-tutorial)
 
-https://github.com/kenshohara/video-classification-3d-cnn-pytorch
-
-https://github.com/kenshohara/3D-ResNets-PyTorch
+[Video 3D Classification](https://github.com/kenshohara/video-classification-3d-cnn-pytorch)
 
 
