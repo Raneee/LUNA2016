@@ -31,7 +31,8 @@ This repository contains a code for Pulmonary Lung Nodule Recognition Using 3D D
     --Model : 0 / 1 / 2 / ... /                         -> Model Index
     --Batch : default or 64 / 128 / ... /               -> Batch Size
     --ImgSize : 32 / 48 / 64                            -> Input Image Size
-    --Epoch : None ~                                    -> How many epochs for train for Which epoch for test
+    --Epoch : 0 / 1 / ... / ~                           -> Train : How many epochs to run for train 
+                                                        -> Test  : Which epoch model for test
 
 
 
