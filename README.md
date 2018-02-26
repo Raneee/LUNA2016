@@ -1,7 +1,7 @@
 # LUNA2016
 
 
-# Model
+# Model Index
 
     0 -> Resnet2D           -> remove!!
     1 -> 3DNet              -> remove!!
@@ -19,7 +19,7 @@ $ python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10
     
     --TT : 'Train' / 'Test'
     --Model : 0 / 1 / 2 / ... /
-    --Batch : 64 / 128 / 256 / ... /
+    --Batch : default or 64 / 128 / 256 / ... /
     --ImgSize : 32 / 48 / 64
     --Epoch : None ~ 
     --Pretrained : True / False
