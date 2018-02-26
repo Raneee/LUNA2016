@@ -38,7 +38,7 @@ This repository contains a code for Pulmonary Lung Nodule Recognition Using 3D D
 
 ### Train
 
-    $ python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10
+    $ python main.py --TT 'Train' --Model 1  --Epoch 10 --ImgSize 64
     
 
 
