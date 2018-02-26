@@ -17,12 +17,12 @@ import Tools_Torch as TORCH_T
 import Tools_IO as IO_T
 import Tools_Summary as SUMMARY_T
 import Tools_Model as MODEL_T
-import Tools_Loss as LOSS_T
+#import Tools_Loss as LOSS_T
 
-def train(model_idx, test_index, batch_size, img_size, pretrained, loss_type, under_sampling=False, isContinue=False):
+def train(model_idx, test_index, batch_size, img_size, pretrained, under_sampling=False, isContinue=False):
 
     model, model_name, batch_size = MODEL_T.model_setter(model_idx, img_size=img_size, batch_size=batch_size, pretrained=pretrained)
-    model_path, model_epoch = MODEL_T.modelLoader(model_name, test_index, img_size, pretrained=pretrained, times=time)
+    model_path, model_epoch = MODEL_T.modelLoader(model_name, test_index, img_size, pretrained=pretrained)
     #model_path, model_epoch, previous_batch_size, previous_learning_rate = MODEL_T.modelLoader(model_name, test_index, img_size)
 
  
@@ -52,12 +52,8 @@ def train(model_idx, test_index, batch_size, img_size, pretrained, loss_type, un
     print 'Learning Rate :', learning_rate
 
 
-    if loss_type == 'FL':
-        criterion = LOSS_T.FocalLoss()
-        print 'FOCAL LOSS'
-    else:
-        criterion = nn.CrossEntropyLoss()
-        print 'CROSSENTROPY LOSS'
+    criterion = nn.CrossEntropyLoss()
+    print 'CROSSENTROPY LOSS'
 
 
 
