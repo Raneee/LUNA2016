@@ -29,8 +29,9 @@ def test(model_idx, num_epoch, batch_size, img_size, pretrained):
         out_name = MODEL_T.model_names[model_idx] + '_withoutPT_' + str(num_epoch) + '_' + str(img_size)
         out_file_dir = os.path.join('../Output')
     '''
-    out_name = MODEL_T.model_names[model_idx] '_' + str(num_epoch) + '_' + str(img_size)
+    out_name = MODEL_T.model_names[model_idx] + '_' + str(num_epoch) + '_' + str(img_size)
     out_file_dir = '../Output'
+
     if not os.path.isdir(out_file_dir):
         os.mkdir(out_file_dir)
     out_file_path = os.path.join(out_file_dir, out_name + '.csv')
