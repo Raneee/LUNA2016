@@ -31,6 +31,10 @@ def test(model_idx, num_epoch, batch_size, img_size, pretrained):
     '''
     out_name = MODEL_T.model_names[model_idx] + '_' + str(num_epoch) + '_' + str(img_size)
     out_file_dir = os.path.join('../Output', 'nopretrain')
+    aaaaa = os.listdir('../Output')
+    print aaaaa
+
+
 
     if not os.path.isdir(out_file_dir):
         os.mkdir(out_file_dir)
