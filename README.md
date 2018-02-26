@@ -8,11 +8,11 @@ This repository contains a code for Pulmonary Lung Nodule Recognition Using 3D D
 
 ## Requirments
 
-PyTorch
+[PyTorch](http://pytorch.org/)
 
-Python 2
+[Python 2](https://www.python.org/download/releases/2.7.2/)
 
-LUNA Dataset
+[LUNA](https://luna16.grand-challenge.org/) Dataset
 
 
 ## Model Index
