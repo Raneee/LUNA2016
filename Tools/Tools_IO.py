@@ -26,8 +26,8 @@ def classFromOutput(output):
 
 
 
-def makePreLists(index, isBalanced=False, isTest=False, isUndersampling=False):
-
+#def makePreLists(index, isBalanced=False, isTest=False, isUndersampling=False):
+def makePreLists(index, isBalanced=False, isTest=False):
 
     candPath = '../Data/CSVFILES/candidates_V2.csv'
     f = file(candPath, 'r')
@@ -88,7 +88,7 @@ def makePreLists(index, isBalanced=False, isTest=False, isUndersampling=False):
     
 
 
-
+    '''
     if isUndersampling:
         balanced_ratio = 50
         patient_list = patientDict.keys()
@@ -127,7 +127,7 @@ def makePreLists(index, isBalanced=False, isTest=False, isUndersampling=False):
         print 'UNDER SAMPLING --> 80% of Positive, *50 of Negative'
     
     	return patientDict, balancedCandidate
-
+    '''
 
     if not isBalanced:     
         for patient in patientDict:
