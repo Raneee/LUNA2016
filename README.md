@@ -27,8 +27,8 @@ This repository contains a code for Pulmonary Lung Nodule Recognition Using 3D D
     
     
 ## Directory
+------Code  
 
-------Code    
     |-Model
     |-Output
     |-Data--------ALLINONE
