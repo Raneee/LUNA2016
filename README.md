@@ -25,6 +25,8 @@ This repository contains a code for Pulmonary Lung Nodule Recognition Using 3D D
     5 -> Densenet2D         -> remove!!
     6 -> ResResnet??        -> remove!!
     
+    0 -> Resnet3D
+    1 -> Densenet3D   
 
      
      
