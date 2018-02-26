@@ -12,7 +12,7 @@ This repository contains a code for Pulmonary Lung Nodule Recognition Using 3D D
 
 [Python 2](https://www.python.org/download/releases/2.7.2/)
 
-[LUNA](https://luna16.grand-challenge.org/) Dataset
+[LUNA Dataset](https://luna16.grand-challenge.org/) 
 
 
 ## Model Index
