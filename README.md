@@ -36,13 +36,13 @@ LUNA Dataset
 
 ### Train
 
-$ python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10
+    $ python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10
     
 
 
 ### Test
     
-$ python main.py --TT 'Test' --Model 1 --Epoch 0 --ImgSize 64
+    $ python main.py --TT 'Test' --Model 1 --Epoch 0 --ImgSize 64
 
 
 ## Reference Code
