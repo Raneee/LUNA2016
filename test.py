@@ -47,7 +47,7 @@ def test(model_idx, num_epoch, batch_size, img_size, pretrained):
 
     f = file(out_file_path, 'a')
     f.write('seriesuid,coordX,coordY,coordZ,probability\n')
-
+    f.close()
 
     for test_index in range(10):
         print 'Test for ', test_index + 1, ' fold'
