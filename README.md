@@ -23,13 +23,13 @@ Python 2
     
 ## Usage
 ### Args
-    --TT : 'Train' / 'Test'    -> Train or Test
-    --Model : 0 / 1 / 2 / ... /
-    --Batch : default or 64 / 128 / 256 / ... /
-    --ImgSize : 32 / 48 / 64
-    --Epoch : None ~ 
-    --Pretrained : True / False
-    --Undersampling : True / False
+    --TT : 'Train' / 'Test'                             -> Train or Test
+    --Model : 0 / 1 / 2 / ... /                         -> Model Index
+    --Batch : default or 64 / 128 / ... /               -> Batch Size
+    --ImgSize : 32 / 48 / 64                            -> Input Image Size
+    --Epoch : None ~                                    -> How many epochs for train for Which epoch for test
+    --Pretrained : True / False                         -> Use Pretrained Model
+    --Undersampling : True / False                      -> Downsampling
 
 
 
@@ -37,7 +37,6 @@ Python 2
 
 $ python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10
     
-
 
 
 ### Test
