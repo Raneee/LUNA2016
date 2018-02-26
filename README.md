@@ -27,17 +27,13 @@ This repository contains a code for Pulmonary Lung Nodule Recognition Using 3D D
     
     
 ## Directory
-    ---Code
-    
-     |-Model
-     
-     |-Output
-     
-     |-Data--------ALLINONE
-     
-                 |-CSVFILES
-                 
-                 |-SUBSET
+
+------Code    
+    |-Model
+    |-Output
+    |-Data--------ALLINONE
+    |-CSVFILES
+    |-SUBSET
 
      
      
