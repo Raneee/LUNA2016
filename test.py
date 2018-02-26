@@ -31,8 +31,6 @@ def test(model_idx, num_epoch, batch_size, img_size, pretrained):
     '''
     out_name = MODEL_T.model_names[model_idx] + '_' + str(num_epoch) + '_' + str(img_size)
     out_file_dir = os.path.join('../Output', 'nopretrain')
-    aaaaa = os.listdir('../Output')
-    print aaaaa
 
 
 
@@ -40,7 +38,7 @@ def test(model_idx, num_epoch, batch_size, img_size, pretrained):
         os.mkdir(out_file_dir)
     out_file_path = os.path.join(out_file_dir, out_name + '.csv')
     print 'Out File : ' , out_file_path, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    if os.path.exists(out_file_path):
+    if os.path.isfile(out_file_path):
         os.remove(out_file_path)
         print '!!!!!!!!!@@#@#@#@#@#@#@#@#@#@#@#@#@#'
 
