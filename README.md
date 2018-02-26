@@ -8,7 +8,7 @@
     2 -> 2D3DNet            -> remove!!
     3 -> Resnet3D
     4 -> Densenet3D
-    5 -> Densenet2D         -> remove
+    5 -> Densenet2D         -> remove!!
     6 -> ResResnet ??       -> remove!!
 
 
