@@ -29,8 +29,6 @@ Python 2
     --Batch : default or 64 / 128 / ... /               -> Batch Size
     --ImgSize : 32 / 48 / 64                            -> Input Image Size
     --Epoch : None ~                                    -> How many epochs for train for Which epoch for test
-    --Pretrained : True / False                         -> Use Pretrained Model
-    --Undersampling : True / False                      -> Downsampling
 
 
 
