@@ -46,6 +46,9 @@ $ python main.py --TT 'Test' --Model 1 --Epoch 0 --ImgSize 64
 
 
 ## Reference Code
-<https://github.com/kenshohara/video-classification-3d-cnn-pytorch>
+
+[PyTorch Tutorial](https://github.com/yunjey/pytorch-tutorial)
+
+[Video 3D Classification](https://github.com/kenshohara/video-classification-3d-cnn-pytorch)
 
 
