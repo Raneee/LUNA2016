@@ -46,9 +46,8 @@ print
 
 
 if Train_or_Test == 'Train':
-    for time in range(2, 5):
-        for epoch in range(5):
-            for test_idx in range(10):
-                Train.train(Model_Type, test_idx, Batch_Size, Img_Size, Pretrained_Weight, Loss_Type, time, under_sampling=Under_Sampling, isContinue=True)
+    for epoch in range(5):
+        for test_idx in range(10):
+            Train.train(Model_Type, test_idx, Batch_Size, Img_Size, Pretrained_Weight, Loss_Type, under_sampling=Under_Sampling, isContinue=True)
 else:
-    Test.test(Model_Type, Epoch_Cnt, Batch_Size, Img_Size, Pretrained_Weight, Time)
+    Test.test(Model_Type, Epoch_Cnt, Batch_Size, Img_Size, Pretrained_Weight)

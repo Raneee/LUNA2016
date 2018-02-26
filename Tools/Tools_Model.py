@@ -69,14 +69,14 @@ def model_setter(idx, img_size=64, batch_size=None, isTest=False, pretrained=Fal
 
 
 
-def modelLoader(model_name, test_index, img_size, times=0, epoch=-1, pretrained=False):
-    if not os.path.exists(os.path.join('../Model', str(times))):
-        os.mkdir(os.path.join('../Model', str(times)))
+def modelLoader(model_name, test_index, img_size, epoch=-1, pretrained=False):
+    if not os.path.exists('../Model'):
+        os.mkdir('../Model')
 
     if pretrained:
-        model_path = os.path.join('../Model', str(times), model_name + '_withPT')
+        model_path = os.path.join('../Model', model_name + '_withPT')
     else:
-        model_path = os.path.join('../Model', str(times), model_name + '_withoutPT')
+        model_path = os.path.join('../Model', model_name + '_withoutPT')
     if not os.path.exists(model_path):
         os.mkdir(model_path)
     files = os.listdir(model_path)
