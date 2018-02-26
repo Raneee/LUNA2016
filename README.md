@@ -3,13 +3,13 @@
 
 # Model
 
-    0 -> Resnet2D
-    1 -> 3DNet
-    2 -> 2D3DNet
+    0 -> Resnet2D           -> remove!!
+    1 -> 3DNet              -> remove!!       
+    2 -> 2D3DNet            -> remove!!
     3 -> Resnet3D
     4 -> Densenet3D
-    5 -> Densenet2D
-    6 -> ResResnet ??
+    5 -> Densenet2D         -> remove
+    6 -> ResResnet ??       -> remove!!
 
 
 
