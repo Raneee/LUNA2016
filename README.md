@@ -31,6 +31,8 @@ $ python main.py --TT 'Train' --Model 1 --ImgSize 64 --Epoch 10
 $ python main.py --TT 'Test' --Model 1 --Epoch 0 --ImgSize 64
 
 
+
+
 https://github.com/kenshohara/video-classification-3d-cnn-pytorch
 
 https://github.com/kenshohara/3D-ResNets-PyTorch
