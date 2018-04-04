@@ -6,6 +6,9 @@ This repository contains a code for Pulmonary Lung Nodule Recognition Using 3D D
 
 
 
+## Introduction
+Detecting and examining pulmonary nodules early is one of the best ways to prevent lung cancer deaths. For this purpose, accurate nodule recognition is key in diagnosing pulmonary nodules. In this paper, we introduce a shortcut connection model and a dense connection model that use a 3D deep convolutional neural network (DCNN) with a shortcut connection and a dense connection for pulmonary nodule recognition. We also apply ensemble methods to boost performance. The performance of our models is compared with that of the models which were submitted to the false positive reduction track of the Lung Nodule Analysis 2016 Challenge. Our 3D DCNN model the with ensemble method ESB-All achieved the highest competition performance metric score of 0.910. This result demonstrates that capturing 3D features of nodules is important in improving performance and that our approach of employing deep layers with the shortcut and dense connections is effective for learning such features.
+
 ## Requirments
 
 [PyTorch](http://pytorch.org/)
@@ -15,10 +18,13 @@ This repository contains a code for Pulmonary Lung Nodule Recognition Using 3D D
 [LUNA Dataset](https://luna16.grand-challenge.org/) 
 
 
-## Model Index
-    
-    0 -> Resnet3D
-    1 -> Densenet3D   
+
+## Installing Code
+1. sfsdf
+2. sdfsadf
+
+
+
 
      
      
@@ -31,7 +37,10 @@ This repository contains a code for Pulmonary Lung Nodule Recognition Using 3D D
     --ImgSize : 32 / 48 / 64                            -> Input Image Size
     --Epoch : 0 / 1 / ... / ~                           -> Train : How many epochs to run for train 
                                                         -> Test  : Which epoch model for test
-
+### Model Index
+    
+    0 -> Resnet3D
+    1 -> Densenet3D   
 
 
 ### Train
@@ -46,6 +55,20 @@ This repository contains a code for Pulmonary Lung Nodule Recognition Using 3D D
 
 
 ## Reference Code
+
+[PyTorch Tutorial](https://github.com/yunjey/pytorch-tutorial)
+
+[Video 3D Classification](https://github.com/kenshohara/video-classification-3d-cnn-pytorch)
+
+
+## Contact
+
+Hwejin Jung(hwejin23@korea.ac.kr)
+
+## Acknowledgements
+
+Our code is inspired by the [Video 3D Classification](https://github.com/kenshohara/video-classification-3d-cnn-pytorch) code.
+
 
 [PyTorch Tutorial](https://github.com/yunjey/pytorch-tutorial)
 
