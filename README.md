@@ -16,14 +16,6 @@ This repository contains a code for Pulmonary Lung Nodule Recognition Using 3D D
 
 
 ## Model Index
-
-    0 -> Resnet2D           -> remove!!
-    1 -> 3DNet              -> remove!!
-    2 -> 2D3DNet            -> remove!!
-    3 -> Resnet3D
-    4 -> Densenet3D
-    5 -> Densenet2D         -> remove!!
-    6 -> ResResnet??        -> remove!!
     
     0 -> Resnet3D
     1 -> Densenet3D   
@@ -32,6 +24,7 @@ This repository contains a code for Pulmonary Lung Nodule Recognition Using 3D D
      
 ## Usage
 ### Args
+
     --TT : 'Train' / 'Test'                             -> Train or Test
     --Model : 0 / 1 / 2 / ... /                         -> Model Index
     --Batch : default or 64 / 128 / ... /               -> Batch Size
