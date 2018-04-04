@@ -56,7 +56,7 @@ This code has been tested on Linux 16.04 64-bit system.
 
 ## Contact
 
-Hwejin Jung(hwejin23@korea.ac.kr)
+Hwejin Jung(hwejin23@gmail.com)
 
 
 ## Acknowledgements
