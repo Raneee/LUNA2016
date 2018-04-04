@@ -1,5 +1,5 @@
 # Pulmonary Lung Nodule Recognition Using 3D Deep Convolutional Neural Network
-Hwejin Jung, Bumsoo Kim, Inyeop Leem Junhyun Lee, and Jaewoo kang [MICCAI 2018 (The international Conference on Medical Image Computing and ComputerAsisted Intervention)](http://www.miccai2018.org/en/) (Under Review)
+-, -, -, -, and - [MICCAI 2018 (The international Conference on Medical Image Computing and ComputerAsisted Intervention)](http://www.miccai2018.org/en/) (Under Review)
 
 
 ## Introduction
