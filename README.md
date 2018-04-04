@@ -9,7 +9,7 @@ Detecting and examining pulmonary nodules early is one of the best ways to preve
 
 This code has been tested on Linux 16.04 64-bit system.
 
-## Prerequisites
+### Prerequisites
 
 [PyTorch](http://pytorch.org/)
 
@@ -47,7 +47,6 @@ This code has been tested on Linux 16.04 64-bit system.
 
     $ python main.py --TT 'Train' --Model 1  --Epoch 10 --ImgSize 64
     
-
 
 ### Test
     
