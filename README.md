@@ -21,8 +21,8 @@ This code has been tested on Linux 16.04 64-bit system.
 
 
 ## Installing Code
-1. sfsdf
-2. sdfsadf
+1. Clone this repository.
+2. Set the dataset path in the codes.
 
 
 
