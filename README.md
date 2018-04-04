@@ -11,9 +11,9 @@ This code has been tested on Linux 16.04 64-bit system.
 
 ### Prerequisites
 
-[PyTorch](http://pytorch.org/)
-
 [Python 2](https://www.python.org/download/releases/2.7.2/)
+
+[PyTorch](http://pytorch.org/)
 
 [LUNA Dataset](https://luna16.grand-challenge.org/) 
 
@@ -60,6 +60,5 @@ Hwejin Jung(hwejin23@gmail.com)
 
 ## Acknowledgements
 
-Our code is inspired by the [Video 3D Classification](https://github.com/kenshohara/video-classification-3d-cnn-pytorch) code and [PyTorch Tutorial](https://github.com/yunjey/pytorch-tutorial).
-
+Our code is inspired by the [Video 3D Classification](https://github.com/kenshohara/video-classification-3d-cnn-pytorch) code.
 
