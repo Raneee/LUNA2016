@@ -1,15 +1,15 @@
 # Pulmonary Lung Nodule Recognition Using 3D Deep Convolutional Neural Network
-
-This repository contains a code for Pulmonary Lung Nodule Recognition Using 3D Deep Convolutional Neural Network paper.
-
-3D CNNs with shortcut connection and with dense connection is implemented.
-
+Hwejin Jung, Bumsoo Kim, Inyeop Leem Junhyun Lee, and Jaewoo kang [MICCAI 2018 (The international Conference on Medical Image Computing and ComputerAsisted Intervention)](http://www.miccai2018.org/en/) (Under Review)
 
 
 ## Introduction
 Detecting and examining pulmonary nodules early is one of the best ways to prevent lung cancer deaths. For this purpose, accurate nodule recognition is key in diagnosing pulmonary nodules. In this paper, we introduce a shortcut connection model and a dense connection model that use a 3D deep convolutional neural network (DCNN) with a shortcut connection and a dense connection for pulmonary nodule recognition. We also apply ensemble methods to boost performance. The performance of our models is compared with that of the models which were submitted to the false positive reduction track of the Lung Nodule Analysis 2016 Challenge. Our 3D DCNN model the with ensemble method ESB-All achieved the highest competition performance metric score of 0.910. This result demonstrates that capturing 3D features of nodules is important in improving performance and that our approach of employing deep layers with the shortcut and dense connections is effective for learning such features.
 
 ## Requirments
+
+This code has been tested on Linux 16.04 64-bit system.
+
+## Prerequisites
 
 [PyTorch](http://pytorch.org/)
 
@@ -54,24 +54,13 @@ Detecting and examining pulmonary nodules early is one of the best ways to preve
     $ python main.py --TT 'Test' --Model 1 --Epoch 0 --ImgSize 64
 
 
-## Reference Code
-
-[PyTorch Tutorial](https://github.com/yunjey/pytorch-tutorial)
-
-[Video 3D Classification](https://github.com/kenshohara/video-classification-3d-cnn-pytorch)
-
-
 ## Contact
 
 Hwejin Jung(hwejin23@korea.ac.kr)
 
+
 ## Acknowledgements
 
-Our code is inspired by the [Video 3D Classification](https://github.com/kenshohara/video-classification-3d-cnn-pytorch) code.
-
-
-[PyTorch Tutorial](https://github.com/yunjey/pytorch-tutorial)
-
-[Video 3D Classification](https://github.com/kenshohara/video-classification-3d-cnn-pytorch)
+Our code is inspired by the [Video 3D Classification](https://github.com/kenshohara/video-classification-3d-cnn-pytorch) code and [PyTorch Tutorial](https://github.com/yunjey/pytorch-tutorial).
 
 
